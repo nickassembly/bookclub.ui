@@ -1,10 +1,10 @@
 import React from 'react';
+import MainPage from './Pages/Main';
 
 function App() {
   return (
     <div className='App'>
-      <h1>Book Club FTW</h1>
-      <p>List Books</p>
+      <MainPage />
     </div>
   );
 }

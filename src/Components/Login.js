@@ -29,7 +29,10 @@ class Login extends Component {
           password: this.state.password
         }
       )
-      .then((res) => localStorage.setItem('cool-jwt', JSON.stringify(res.data)));
+      .then((res) => {
+        localStorage.setItem('cool-jwt', JSON.stringify(res.data));
+        this.props.history.push('/Protected');
+      });
   }
 
   render() {

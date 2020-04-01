@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {getJwt} from '../Helpers/Jwt';
+import {withRouter} from 'react-router-dom';
+import axios from 'axios';
 
 class AuthenticatedComponent extends Component {
   constructor(props) {
@@ -6,14 +9,41 @@ class AuthenticatedComponent extends Component {
     this.state = {
       user: undefined
     };
-    }
-    
-    componentDidMount() {
-        const jwt = 
+  }
+
+  componentDidMount() {
+    const jwt = getJwt();
+
+    if (!jwt) {
+      this.props.history.push('/Login');
     }
 
+    axios
+      .get(
+        'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books',
+        {headers: {Authorization: `bearer ${jwt}`}}
+      )
+      .then((res) =>
+        this.setState({
+          user: res.data
+        })
+      )
+      .catch((err) => {
+        // localStorage.removeItem('cool-jwt');
+        this.props.history.push('/Login');
+      });
+  }
+
   render() {
-    return <div>Hello from the authenticated page</div>;
+    if (this.state.user === undefined) {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
+    }
+
+    return <div>{this.props.children}</div>;
   }
 }
-export default AuthenticatedComponent;
+export default withRouter(AuthenticatedComponent);

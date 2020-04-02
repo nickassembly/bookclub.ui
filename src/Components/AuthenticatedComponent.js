@@ -29,8 +29,8 @@ class AuthenticatedComponent extends Component {
         })
       )
       .catch((err) => {
-        // localStorage.removeItem('cool-jwt');
-        this.props.history.push('/Login');
+        //localStorage.removeItem('cool-jwt');
+        // this.props.history.push('/Login');
       });
   }
 

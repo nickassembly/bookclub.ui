@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import '../app.css';
+import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import {FacebookLoginButton} from 'react-social-login-buttons';
 
 class Login extends Component {
   constructor(props) {
@@ -38,23 +41,42 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={(e) => this.submit(e)}>
-          <label>email</label>{' '}
-          <input
-            type='text'
-            name='email'
-            onChange={(e) => this.change(e)}
-            value={this.state.email}
-          />
-          <label>password</label>
-          <input
-            type='password'
-            name='password'
-            onChange={(e) => this.change(e)}
-            value={this.state.password}
-          />
-          <button type='submit'>Submit</button>
-        </form>
+        <Form className='login-form' onSubmit={(e) => this.submit(e)}>
+          <h1 className='text-center'>
+            <span className='font-weight-bold'>Book Club</span>
+          </h1>
+          <h3 className='login-form-header text-center'>Scientia Potentia Est</h3>
+          <FormGroup>
+            <Label>Email</Label>
+            <Input
+              type='text'
+              name='email'
+              placeholder='Email'
+              onChange={(e) => this.change(e)}
+              value={this.state.email}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Password</Label>
+            <Input
+              type='password'
+              name='password'
+              placeholder='Password'
+              onChange={(e) => this.change(e)}
+              value={this.state.password}
+            />
+          </FormGroup>
+          <Button className='btn-lg btn-dark btn-block' type='submit'>
+            Log in
+          </Button>
+          <div className='text-center pt-3'>Or continue with your social account</div>
+          <FacebookLoginButton className='mt-3 mb-3' />
+          <div className='text-center'>
+            <a href='/register'>Register</a>
+            <span className='p-2'>|</span>
+            <a href='/forgot-password'>Forgot Password</a>
+          </div>
+        </Form>
       </div>
     );
   }

@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../app.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {FacebookLoginButton} from 'react-social-login-buttons';
-import AuthenticatedComponent from './AuthenticatedComponent';
 
 class Login extends Component {
   constructor(props) {
@@ -25,6 +24,7 @@ class Login extends Component {
 
   submit(e) {
     e.preventDefault();
+
     axios
       .post(
         'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/identity/login',
@@ -34,7 +34,7 @@ class Login extends Component {
         }
       )
       .then((res) => {
-        localStorage.setItem('cool-jwt', JSON.stringify(res.data));
+        localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
         this.props.history.push('/Protected');
       });
   }

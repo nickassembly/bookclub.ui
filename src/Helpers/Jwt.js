@@ -1,3 +1,4 @@
 export const getJwt = () => {
-  return localStorage.getItem('cool-jwt');
+  var parseToken = localStorage.getItem('cool-jwt').replace('"', '');
+  return parseToken.replace('"', '');
 };

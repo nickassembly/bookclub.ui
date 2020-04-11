@@ -21,7 +21,7 @@ class AuthenticatedComponent extends Component {
     axios
       .get(
         'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books',
-        {headers: {Authorization: `${jwt}`}}
+        {headers: {Authorization: `bearer ${jwt}`}}
       )
       .then((res) =>
         this.setState({
@@ -33,6 +33,10 @@ class AuthenticatedComponent extends Component {
         // this.props.history.push('/Login');
       });
   }
+
+  // todo: change to be a landing page for a specific user
+  // todo: add Registration to create new users
+  // todo: admin panel to remove users?
 
   render() {
     if (this.state.user === undefined) {

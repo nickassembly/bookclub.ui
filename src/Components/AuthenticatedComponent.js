@@ -7,7 +7,7 @@ class AuthenticatedComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: undefined
+      user: undefined,
     };
   }
 
@@ -21,11 +21,11 @@ class AuthenticatedComponent extends Component {
     axios
       .get(
         'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books',
-        {headers: {Authorization: `bearer ${jwt}`}}
+        {headers: {Authorization: `${jwt}`}}
       )
       .then((res) =>
         this.setState({
-          user: res.data
+          user: res.data,
         })
       )
       .catch((err) => {

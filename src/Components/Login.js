@@ -3,13 +3,14 @@ import axios from 'axios';
 import '../app.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {FacebookLoginButton} from 'react-social-login-buttons';
+import AuthenticatedComponent from './AuthenticatedComponent';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
 
     this.change = this.change.bind(this);
@@ -18,7 +19,7 @@ class Login extends Component {
 
   change(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -29,7 +30,7 @@ class Login extends Component {
         'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/identity/login',
         {
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
         }
       )
       .then((res) => {

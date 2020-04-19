@@ -10,10 +10,10 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from 'reactstrap';
 
-const Example = (props) => {
+const Main = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -26,7 +26,7 @@ const Example = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className='mr-auto' navbar>
             <NavItem>
-              <NavLink href=''>Register</NavLink>
+              <NavLink href=''>Placeholder</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href='/auth'>Login</NavLink>
@@ -49,4 +49,4 @@ const Example = (props) => {
   );
 };
 
-export default Example;
+export default Main;

@@ -1,18 +1,19 @@
 import React from 'react';
-import MainPage from './Pages/Main';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Login from './Components/Login';
-import Protected from './Components/ProtectedComponent';
+import UserMain from './Components/UserMain';
 import AuthenticatedComponent from './Components/AuthenticatedComponent';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Main from './Pages/Main';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path='/auth' component={Login} />
-        <Route path='/' exact component={MainPage} />
+        <Route path='/' exact component={Main} />
         <AuthenticatedComponent>
-          <Route path='/Protected' component={Protected} />
+          <Route path='/protected' component={UserMain} />
         </AuthenticatedComponent>
       </Switch>
     </BrowserRouter>

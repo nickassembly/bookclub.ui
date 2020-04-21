@@ -35,7 +35,7 @@ class Login extends Component {
       )
       .then((res) => {
         localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
-        this.props.history.push('/Protected');
+        this.props.history.push('/user');
       });
   }
 

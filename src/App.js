@@ -1,21 +1,27 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './Components/Login';
-import UserMain from './Components/UserMain';
+import User from './Components/User';
 import AuthenticatedComponent from './Components/AuthenticatedComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Main from './Pages/Main';
+import Navbar from './Components/Navbar';
+import Recommendations from './Components/Recommendations';
+import Wishlist from './Components/Wishlist';
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path='/auth' component={Login} />
-        <Route path='/' exact component={Main} />
-        <AuthenticatedComponent>
-          <Route path='/protected' component={UserMain} />
-        </AuthenticatedComponent>
-      </Switch>
+      <div className='container'>
+        <Switch>
+          <Route path='/' exact component={Navbar} />
+          <Route path='/login' component={Login} />
+          <AuthenticatedComponent>
+            <Route path='/user' component={User} />
+            <Route path='/recommendations' component={Recommendations} />
+            <Route path='/wishlist' component={Wishlist} />
+          </AuthenticatedComponent>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }

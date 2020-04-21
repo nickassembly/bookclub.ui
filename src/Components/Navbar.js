@@ -26,10 +26,16 @@ const Main = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className='mr-auto' navbar>
             <NavItem>
+              <NavLink href='/recommendations'>Recommendations</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href='/wishlist'>Wishlist</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href=''>Placeholder</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/auth'>Login</NavLink>
+              <NavLink href='/login'>Login</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

@@ -7,9 +7,7 @@ import {getJwt} from '../Helpers/Jwt';
 export default class Wishlist extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      books: [{}],
-    };
+    this.state = {books: []};
   }
 
   componentDidMount() {
@@ -45,11 +43,11 @@ export default class Wishlist extends Component {
             </tr>
           </thead>
           <tbody>
-            {books.map((books) => (
-              <tr>
-                <td>{books.data}</td>
-                <td>{books.data}</td>
-                <td>{books.data}</td>
+            {books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.isbn}</td>
+                <td>{book.author}</td>
+                <td>{book.title}</td>
               </tr>
             ))}
           </tbody>

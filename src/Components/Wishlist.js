@@ -26,9 +26,6 @@ export default class Wishlist extends Component {
     );
   }
 
-  // Need to figure out how to iterate through isbn, author, title and set key = id
-  // these fields are on the api but when I try to set them in the constructor they are coming back undefined
-
   render() {
     const {books} = this.state;
     return (

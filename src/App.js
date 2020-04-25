@@ -15,11 +15,10 @@ function App() {
         <Switch>
           <Route path='/' exact component={Navbar} />
           <Route path='/login' component={Login} />
-          <AuthenticatedComponent>
-            <Route path='/user' component={User} />
-            <Route path='/recommendations' component={Recommendations} />
-            <Route path='/wishlist' component={Wishlist} />
-          </AuthenticatedComponent>
+
+          <Route path='/user' component={User} />
+          <Route path='/recommendations' component={Recommendations} />
+          <Route path='/wishlist' component={Wishlist} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -35,7 +35,7 @@ const Main = (props) => {
               <NavLink href=''>Placeholder</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/login'>Login</NavLink>
+              <NavLink href=''>Logout</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

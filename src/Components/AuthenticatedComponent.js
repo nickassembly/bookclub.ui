@@ -22,7 +22,7 @@ class AuthenticatedComponent extends Component {
       .get(
         // Not sure why /books is needed here, I have tried /login endpoint but that keeps bringing me to the login screen
         // the login endpoint is a Post so maybe I need to change that or handle it differently.
-        'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books',
+        'https://bookclubapi.azurewebsites.net/api/v1/books',
         {headers: {Authorization: `bearer ${jwt}`}}
       )
       .then((res) =>

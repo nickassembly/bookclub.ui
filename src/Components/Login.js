@@ -26,13 +26,10 @@ class Login extends Component {
     e.preventDefault();
 
     axios
-      .post(
-        'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/identity/login',
-        {
-          email: this.state.email,
-          password: this.state.password,
-        }
-      )
+      .post('https://bookclubapi.azurewebsites.net/api/v1/identity/login', {
+        email: this.state.email,
+        password: this.state.password,
+      })
       .then((res) => {
         localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
         this.props.history.push('/user');

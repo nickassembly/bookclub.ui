@@ -18,10 +18,9 @@ export default class Wishlist extends Component {
 
   refreshList() {
     const jwt = getJwt();
-    Axios.get(
-      'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books',
-      {headers: {Authorization: `bearer ${jwt}`}}
-    ).then((res) =>
+    Axios.get('https://bookclubapi.azurewebsites.net/api/v1/books', {
+      headers: {Authorization: `bearer ${jwt}`},
+    }).then((res) =>
       this.setState({
         books: res.data,
       })

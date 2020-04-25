@@ -4,7 +4,6 @@ import Login from './Components/Login';
 import User from './Components/User';
 import AuthenticatedComponent from './Components/AuthenticatedComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './Components/Navbar';
 import Recommendations from './Components/Recommendations';
 import Wishlist from './Components/Wishlist';
 
@@ -14,7 +13,6 @@ function App() {
       <div className='container'>
         <Switch>
           <Route path='/' exact component={Login} />
-          <Route path='/login' component={Login} />
           <AuthenticatedComponent>
             <Route path='/user' component={User} />
             <Route path='/recommendations' component={Recommendations} />

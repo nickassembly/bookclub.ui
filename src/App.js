@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <div className='container'>
         <Switch>
-          <Route path='/' exact component={Navbar} />
+          <Route path='/' exact component={Login} />
           <Route path='/login' component={Login} />
           <AuthenticatedComponent>
             <Route path='/user' component={User} />

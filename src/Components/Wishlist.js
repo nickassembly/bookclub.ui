@@ -3,11 +3,13 @@ import Navbar from './Navbar';
 import {Table} from 'react-bootstrap';
 import Axios from 'axios';
 import {getJwt} from '../Helpers/Jwt';
+import {Button, ButtonToolbar} from 'react-bootstrap';
+import AddBookModal from './AddBookModal';
 
 export default class Wishlist extends Component {
   constructor(props) {
     super(props);
-    this.state = {books: []};
+    this.state = {books: [], addModalShow: false};
   }
 
   componentDidMount() {
@@ -28,6 +30,7 @@ export default class Wishlist extends Component {
 
   render() {
     const {books} = this.state;
+    let addModalClose = () => this.setState({addModalShow: false});
     return (
       <div className=''>
         <Navbar />
@@ -49,6 +52,12 @@ export default class Wishlist extends Component {
             ))}
           </tbody>
         </Table>
+        <ButtonToolbar>
+          <Button variant='primary' onClick={() => this.setState({addModalShow: true})}>
+            Add Book
+          </Button>
+          <AddBookModal show={this.state.addModalShow} onHide={addModalClose} />
+        </ButtonToolbar>
       </div>
     );
   }

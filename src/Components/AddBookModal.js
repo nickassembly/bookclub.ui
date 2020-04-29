@@ -1,11 +1,44 @@
 import React, {Component} from 'react';
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap';
+import {getJwt} from '../Helpers/Jwt';
 
 export default class AddBookModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookId: null,
+      isbn: '',
+      author: '',
+      title: '',
+    };
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-
-    alert(event.target.Isbn.value);
+    const jwt = getJwt();
+    fetch('https://bookclubapi.azurewebsites.net/api/v1/books', {
+      method: 'POST',
+      headers: {
+        Authorization: 'bearer ' + getJwt(),
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        bookId: null,
+        isbn: event.target.isbn.value,
+        author: event.target.author.value,
+        title: event.target.title.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          alert(result);
+        },
+        (error) => {
+          alert('failed');
+        }
+      );
   }
 
   render() {

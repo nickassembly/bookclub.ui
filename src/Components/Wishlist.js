@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Navbar from './Navbar';
-import {Table} from 'react-bootstrap';
+import {Table} from 'reactstrap';
 import Axios from 'axios';
 import {getJwt} from '../Helpers/Jwt';
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import {Button, ButtonToolbar} from 'reactstrap';
 import AddBookModal from './AddBookModal';
 
 export default class Wishlist extends Component {

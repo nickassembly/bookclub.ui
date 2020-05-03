@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Recommendations from './Components/Recommendations';
 import Wishlist from './Components/Wishlist';
 
+// TODO: Wire up AddBookForm and UserBooklist then refactor App.js
+
 function App() {
   return (
     <BrowserRouter>

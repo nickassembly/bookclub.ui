@@ -4,7 +4,6 @@ import {Table} from 'reactstrap';
 import Axios from 'axios';
 import {getJwt} from '../Helpers/Jwt';
 import {Button, ButtonToolbar} from 'reactstrap';
-import AddBookModal from './AddBookModal';
 
 export default class Wishlist extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ export default class Wishlist extends Component {
   refreshList() {
     const jwt = getJwt();
     Axios.get('https://bookclubapi.azurewebsites.net/api/v1/books', {
-      headers: {Authorization: `bearer ${jwt}`},
+      // headers: {Authorization: `bearer ${jwt}`},
     }).then((res) =>
       this.setState({
         books: res.data,
@@ -55,7 +54,6 @@ export default class Wishlist extends Component {
           <Button variant='primary' onClick={() => this.setState({addModalShow: true})}>
             Add Book
           </Button>
-          <AddBookModal show={this.state.addModalShow} onHide={addModalClose} />
         </ButtonToolbar>
       </div>
     );

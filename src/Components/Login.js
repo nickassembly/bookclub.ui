@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../app.css';
+import '../App.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {FacebookLoginButton} from 'react-social-login-buttons';
 

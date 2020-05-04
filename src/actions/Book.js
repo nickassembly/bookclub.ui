@@ -1,4 +1,4 @@
-import api from './api';
+import api from './Api';
 
 export const ACTION_TYPES = {
   CREATE: 'CREATE',
@@ -21,7 +21,6 @@ export const getAll = () => (dispatch) => {
 };
 
 export const create = (data, onSuccess) => (dispatch) => {
-  data = formateData(data);
   api
     .book()
     .create(data)
@@ -36,7 +35,6 @@ export const create = (data, onSuccess) => (dispatch) => {
 };
 
 export const update = (id, data, onSuccess) => (dispatch) => {
-  data = formateData(data);
   api
     .book()
     .update(id, data)

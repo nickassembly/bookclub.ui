@@ -13,11 +13,3 @@ export default {
     };
   },
 };
-
-export default {
-  identity(url = baseUrl + 'identity') {
-    return {
-      create: (newRecord) => axios.post(url, newRecord),
-    };
-  },
-};

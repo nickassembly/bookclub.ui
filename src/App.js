@@ -18,7 +18,7 @@ function App() {
     <Provider store={Store}>
       <ToastProvider autoDismiss={true}>
         <BrowserRouter>
-          <div className='container'>
+          <Container>
             <Switch>
               <Route path='/' exact component={Login} />
               <AuthenticatedComponent>
@@ -27,7 +27,7 @@ function App() {
                 <Route path='/wishlist' component={Wishlist} />
               </AuthenticatedComponent>
             </Switch>
-          </div>
+          </Container>
         </BrowserRouter>
       </ToastProvider>
     </Provider>

@@ -42,55 +42,39 @@ class UserBooklist extends Component<Props, *> {
     this.props.getAllBooks();
   }
   render() {
-    return (
-      <Paper className={classes.paper} elevation={3}>
-        <Grid container>
-          <Grid item xs={6}>
-            <AddBookForm {...{currentId, setCurrentId}} />
-          </Grid>
-          <Grid item xs={6}>
-            <TableContainer>
-              <Table>
-                <TableHead className={classes.root}>
-                  <TableRow>
-                    <TableCell>Isbn</TableCell>
-                    <TableCell>Author</TableCell>
-                    <TableCell>Title</TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {props.booklist.map((record, index) => {
-                    return (
-                      <TableRow key={index} hover>
-                        <TableCell>{record.isbn}</TableCell>
-                        <TableCell>{record.author}</TableCell>
-                        <TableCell>{record.title}</TableCell>
-                        <TableCell>
-                          <ButtonGroup variant='text'>
-                            <Button>
-                              <EditIcon
-                                color='primary'
-                                onClick={() => {
-                                  setCurrentId(record.id);
-                                }}
-                              />
-                            </Button>
-                            <Button>
-                              <DeleteIcon color='secondary' onClick={() => onDelete(record.id)} />
-                            </Button>
-                          </ButtonGroup>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-        </Grid>
-      </Paper>
+    let userBody = '';
+    let userRows = '';
+    let userHeading = '';
+
+    bookHeading = (
+      <TableRow className={styles.rowContainer}>
+        <TableCell>Isbn</TableCell>
+        <TableCell>Author</TableCell>
+        <TableCell>Title</TableCell>
+      </TableRow>
     );
+
+    bookRows = this.props.books.map((i) => <BookRow key={i} {...i} />);
+
+    bookBody = (
+      <Table>
+        <TableHead>{booklist.book}</TableHead>
+        <TableBody>{booklist.book}</TableBody>
+      </Table>
+    );
+
+    if (userRows.length === 0) {
+      return null;
+    }
+    return (
+      <Fragment>
+        <div className={styles.rowContainer} style={{textAlign: 'center'}}>
+          {bookBody}
+        </div>
+      </Fragment>
+    );
+
+    export default withLocalize(UserBooklist);
   }
 }
 

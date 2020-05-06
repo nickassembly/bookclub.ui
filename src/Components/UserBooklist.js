@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {Fragment, Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions/Book';
 import {
@@ -14,10 +14,16 @@ import {
   ButtonGroup,
   Button,
 } from '@material-ui/core';
-import AddBookForm from './AddBookForm';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import {useToasts} from 'react-toast-notifications';
+import {Translate, withLocalize} from 'react-localize-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+type Props = {
+  books: Array<{}>,
+};
 
 const styles = (theme) => ({
   root: {
@@ -31,70 +37,62 @@ const styles = (theme) => ({
   },
 });
 
-const UserBooklist = ({classes, ...props}) => {
-  const [currentId, setCurrentId] = useState('');
-
-  useEffect(() => {
-    props.getAllBooks();
-  }, []);
-
-  //toast msg.
-  const {addToast} = useToasts();
-
-  const onDelete = (id) => {
-    if (window.confirm('Are you sure to delete this book?'))
-      props.deleteBook(id, () => addToast('Deleted successfully', {appearance: 'info'}));
-  };
-  return (
-    <Paper className={classes.paper} elevation={3}>
-      <Grid container>
-        <Grid item xs={6}>
-          <AddBookForm {...{currentId, setCurrentId}} />
+class UserBooklist extends Component<Props, *> {
+  componentDidMount() {
+    this.props.getAllBooks();
+  }
+  render() {
+    return (
+      <Paper className={classes.paper} elevation={3}>
+        <Grid container>
+          <Grid item xs={6}>
+            <AddBookForm {...{currentId, setCurrentId}} />
+          </Grid>
+          <Grid item xs={6}>
+            <TableContainer>
+              <Table>
+                <TableHead className={classes.root}>
+                  <TableRow>
+                    <TableCell>Isbn</TableCell>
+                    <TableCell>Author</TableCell>
+                    <TableCell>Title</TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {props.booklist.map((record, index) => {
+                    return (
+                      <TableRow key={index} hover>
+                        <TableCell>{record.isbn}</TableCell>
+                        <TableCell>{record.author}</TableCell>
+                        <TableCell>{record.title}</TableCell>
+                        <TableCell>
+                          <ButtonGroup variant='text'>
+                            <Button>
+                              <EditIcon
+                                color='primary'
+                                onClick={() => {
+                                  setCurrentId(record.id);
+                                }}
+                              />
+                            </Button>
+                            <Button>
+                              <DeleteIcon color='secondary' onClick={() => onDelete(record.id)} />
+                            </Button>
+                          </ButtonGroup>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <TableContainer>
-            <Table>
-              <TableHead className={classes.root}>
-                <TableRow>
-                  <TableCell>Isbn</TableCell>
-                  <TableCell>Author</TableCell>
-                  <TableCell>Title</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {props.booklist.map((record, index) => {
-                  return (
-                    <TableRow key={index} hover>
-                      <TableCell>{record.isbn}</TableCell>
-                      <TableCell>{record.author}</TableCell>
-                      <TableCell>{record.title}</TableCell>
-                      <TableCell>
-                        <ButtonGroup variant='text'>
-                          <Button>
-                            <EditIcon
-                              color='primary'
-                              onClick={() => {
-                                setCurrentId(record.id);
-                              }}
-                            />
-                          </Button>
-                          <Button>
-                            <DeleteIcon color='secondary' onClick={() => onDelete(record.id)} />
-                          </Button>
-                        </ButtonGroup>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
-};
+      </Paper>
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   booklist: state.books.list,

@@ -32,11 +32,11 @@ const styles = (theme) => ({
 });
 
 const UserBooklist = ({classes, ...props}) => {
-  const [currentId, setCurrentId] = useState(0);
+  const [currentId, setCurrentId] = useState('');
 
   useEffect(() => {
     props.getAllBooks();
-  }, []); //componentDidMount
+  }, []);
 
   //toast msg.
   const {addToast} = useToasts();
@@ -97,7 +97,7 @@ const UserBooklist = ({classes, ...props}) => {
 };
 
 const mapStateToProps = (state) => ({
-  booklist: state.book.list,
+  booklist: state.books.list,
 });
 
 const mapActionToProps = {

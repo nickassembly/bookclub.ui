@@ -18,16 +18,10 @@ function App() {
     <Provider store={Store}>
       <ToastProvider autoDismiss={true}>
         <BrowserRouter>
-          <Container>
-            <Switch>
-              <Route path='/' exact component={Login} />
-              <AuthenticatedComponent>
-                <Route path='/user' component={User} />
-                <Route path='/recommendations' component={Recommendations} />
-                <Route path='/wishlist' component={Wishlist} />
-              </AuthenticatedComponent>
-            </Switch>
-          </Container>
+          <div className='container'>
+            <Wishlist />
+            <UserBooklist />
+          </div>
         </BrowserRouter>
       </ToastProvider>
     </Provider>

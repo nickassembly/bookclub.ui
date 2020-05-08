@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import './App.css';
 import {Store} from './actions/Store';
 import {Provider} from 'react-redux';
 import UserBooklist from './Components/UserBooklist';

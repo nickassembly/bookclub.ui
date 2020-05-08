@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-import styles from './UserRow.css';
+import styles from './BookRow.css';
 
 type Props = {
   isbn: string,
@@ -11,7 +11,7 @@ type Props = {
   title: string,
 };
 
-export default class UserRow extends Component {
+export default class BookRow extends Component<Props, *> {
   render() {
     const {isbn, author, title} = this.props;
 

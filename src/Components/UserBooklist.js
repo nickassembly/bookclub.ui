@@ -5,22 +5,24 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import UserRow from './UserRow';
+import BookRow from './BookRow.js';
+import styles from './BookRow.css';
 import Axios from 'axios';
-import styles from './UserRow.css';
+
 import {getJwt} from '../Helpers/Jwt';
 
 type Props = {
-  books: [book],
+  books: Array<{}>,
+  getAllBooks: () => {},
 };
 
-class UserBooklist extends Component {
-  componentDidMount() {
+class UserBooklist extends Component<Props, *> {
+  getAllBooks() {
     Axios.get('https://bookclubapi.azurewebsites.net/api/v1/books', {
       // headers: {Authorization: `bearer ${jwt}`},
     }).then((res) =>
       this.setState({
-        books: res.data,
+        books: res.books,
       })
     );
   }
@@ -29,17 +31,17 @@ class UserBooklist extends Component {
     let bookBody = '';
     let bookRows = '';
     let bookHeading = '';
+    let book = this.getAllBooks();
 
     bookHeading = (
-      <TableRow>
+      <TableRow className={styles.rowContainer}>
         <TableCell>Isbn</TableCell>
         <TableCell>Author</TableCell>
         <TableCell>Title</TableCell>
       </TableRow>
     );
 
-    // bookRows = this.props.books.map((book) => <UserRow key={book.id} {...book} />);
-    bookRows = <UserRow></UserRow>;
+    bookRows = this.props.books.map((books) => <BookRow key={book.id} {...books} />);
 
     bookBody = (
       <Table>
@@ -53,7 +55,9 @@ class UserBooklist extends Component {
     }
     return (
       <Fragment>
-        <div>{bookBody}</div>
+        <div className={styles.rowContainer} style={{textAlign: 'center'}}>
+          {bookBody}
+        </div>
       </Fragment>
     );
   }

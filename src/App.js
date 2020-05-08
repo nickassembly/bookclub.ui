@@ -10,7 +10,6 @@ import User from './Components/User';
 import AuthenticatedComponent from './Components/AuthenticatedComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Recommendations from './Components/Recommendations';
-import Wishlist from './Components/Wishlist';
 
 function App() {
   return (

@@ -19,7 +19,6 @@ function App() {
       <ToastProvider autoDismiss={true}>
         <BrowserRouter>
           <div className='container'>
-            <Wishlist />
             <UserBooklist />
           </div>
         </BrowserRouter>

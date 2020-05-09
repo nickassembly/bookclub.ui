@@ -41,7 +41,8 @@ class UserBooklist extends Component<Props, *> {
       </TableRow>
     );
 
-    bookRows = this.props.books.map((books) => <BookRow key={book.id} {...books} />);
+    // bookRows = this.props.books.map((books) => <BookRow key={book.id} {...books} />);
+    bookRows = <BookRow />;
 
     bookBody = (
       <Table>

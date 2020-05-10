@@ -11,28 +11,26 @@ import Axios from 'axios';
 
 import {getJwt} from '../Helpers/Jwt';
 
-type Props = {
-  books: Array<{}>,
-  getAllBooks: () => {},
-};
+class UserBooklist extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      books: [],
+    };
+  }
 
-class UserBooklist extends Component<Props, *> {
-  getAllBooks() {
-    Axios.get('https://bookclubapi.azurewebsites.net/api/v1/books', {
-      // headers: {Authorization: `bearer ${jwt}`},
-    }).then((res) =>
-      this.setState({
-        books: res.books,
-      })
-    );
+  async componentDidMount() {
+    const url = 'https://bookclubapi.azurewebsites.net/api/v1/books';
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({book: data, loading: false});
   }
 
   render() {
     let bookBody = '';
     let bookRows = '';
     let bookHeading = '';
-    let book = this.getAllBooks();
-
     bookHeading = (
       <TableRow className={styles.rowContainer}>
         <TableCell>Isbn</TableCell>
@@ -41,9 +39,6 @@ class UserBooklist extends Component<Props, *> {
       </TableRow>
     );
 
-    // bookRows = this.props.books.map((books) => <BookRow key={book.id} {...books} />);
-    bookRows = <BookRow />;
-
     bookBody = (
       <Table>
         <TableHead>{bookHeading}</TableHead>
@@ -51,15 +46,31 @@ class UserBooklist extends Component<Props, *> {
       </Table>
     );
 
-    if (bookRows.length === 0) {
-      return null;
-    }
+    // if (bookRows.length === 0) {
+    //   return null;
+    // }
+
     return (
-      <Fragment>
-        <div className={styles.rowContainer} style={{textAlign: 'center'}}>
-          {bookBody}
-        </div>
-      </Fragment>
+      <div>
+        {this.state.loading ? (
+          <div>loading...</div>
+        ) : (
+          <Fragment>
+            <div className={styles.rowContainer} style={{textAlign: 'center'}}>
+              {bookBody}
+              {this.state.book.map((book) => (
+                <TableRow>
+                  <div key={book.id}>
+                    <TableCell> {book.isbn} </TableCell>
+                    <TableCell> {book.author} </TableCell>
+                    <TableCell> {book.title} </TableCell>
+                  </div>
+                </TableRow>
+              ))}
+            </div>
+          </Fragment>
+        )}
+      </div>
     );
   }
 }

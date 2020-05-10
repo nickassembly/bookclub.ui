@@ -5,11 +5,17 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import BookRow from './BookRow.js';
-import styles from './BookRow.css';
-import Axios from 'axios';
 
+import {makeStyles} from '@material-ui/core/styles';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 import {getJwt} from '../Helpers/Jwt';
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 class UserBooklist extends Component {
   constructor(props) {
@@ -31,8 +37,9 @@ class UserBooklist extends Component {
     let bookBody = '';
     let bookRows = '';
     let bookHeading = '';
+
     bookHeading = (
-      <TableRow className={styles.rowContainer}>
+      <TableRow>
         <TableCell>Isbn</TableCell>
         <TableCell>Author</TableCell>
         <TableCell>Title</TableCell>
@@ -46,28 +53,36 @@ class UserBooklist extends Component {
       </Table>
     );
 
-    // if (bookRows.length === 0) {
-    //   return null;
-    // }
-
     return (
       <div>
         {this.state.loading ? (
           <div>loading...</div>
         ) : (
           <Fragment>
-            <div className={styles.rowContainer} style={{textAlign: 'center'}}>
-              {bookBody}
-              {this.state.book.map((book) => (
-                <TableRow>
-                  <div key={book.id}>
-                    <TableCell> {book.isbn} </TableCell>
-                    <TableCell> {book.author} </TableCell>
-                    <TableCell> {book.title} </TableCell>
-                  </div>
-                </TableRow>
-              ))}
-            </div>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align='center'>Isbn </TableCell>
+                    <TableCell align='center'>Author</TableCell>
+                    <TableCell align='center'>Title</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.book.map((book) => (
+                    <TableRow key={book.id}>
+                      <TableCell align='center' component='th' scope='row'>
+                        {book.isbn}
+                      </TableCell>
+                      <TableCell align='center'>{book.author}</TableCell>
+                      <TableCell align='center'>{book.title}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <button>Add Book</button>
+            <button>Delete Book</button>
           </Fragment>
         )}
       </div>

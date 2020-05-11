@@ -11,12 +11,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {getJwt} from '../Helpers/Jwt';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
 class UserBooklist extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +53,7 @@ class UserBooklist extends Component {
           <div>loading...</div>
         ) : (
           <Fragment>
+            <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>

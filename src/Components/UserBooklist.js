@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import {makeStyles} from '@material-ui/core/styles';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -55,7 +56,7 @@ class UserBooklist extends Component {
           <Fragment>
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
-              <Table>
+              <Table size='small' aria-label='a dense table'>
                 <TableHead>
                   <TableRow>
                     <TableCell align='center'>Isbn </TableCell>
@@ -66,6 +67,9 @@ class UserBooklist extends Component {
                 <TableBody>
                   {this.state.book.map((book) => (
                     <TableRow key={book.id}>
+                      <TableCell>
+                        <Checkbox inputProps={{'aria-label': 'uncontrolled-checkbox'}} />
+                      </TableCell>
                       <TableCell align='center' component='th' scope='row'>
                         {book.isbn}
                       </TableCell>

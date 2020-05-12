@@ -80,6 +80,9 @@ class UserBooklist extends Component {
             <button>Delete Book</button>
           </Fragment>
         )}
+        <div className='text-center'>
+          <a href='./Register'>Register</a>
+        </div>
       </div>
     );
   }

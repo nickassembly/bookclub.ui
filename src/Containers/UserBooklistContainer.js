@@ -1,6 +1,6 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getCurrentBookKey} from '../selectors/current';
+import {getCurrentBookId, getCurrentBookKey} from '../selectors/current';
 import {selectBook, unselectBook} from '../actions/ui';
 
 const handleClickCheckBox = (checkedBook) => (dispatch, getState) => {

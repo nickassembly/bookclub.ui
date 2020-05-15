@@ -17,6 +17,7 @@ import {getJwt} from '../Helpers/Jwt';
 class UserBooklist extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   state = {
@@ -25,6 +26,13 @@ class UserBooklist extends Component {
     checkedBooks: this.props.checkedBooks,
     selectedBooks: this.props.selectedBooks,
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      checkedBook: nextProps.checkedBook,
+      selectedBooks: nextProps.selectedBooks,
+    });
+  }
 
   async componentDidMount() {
     const url = 'https://bookclubapi.azurewebsites.net/api/v1/books';
@@ -35,7 +43,7 @@ class UserBooklist extends Component {
 
   handleChange = (name) => (event) => {
     this.setState({[name]: event.target.checked});
-    this.props.handleClickCheckBox(this.state.checkedBook);
+    this.props.handleClickCheckBox(this.state.checkedBooks);
   };
 
   render() {

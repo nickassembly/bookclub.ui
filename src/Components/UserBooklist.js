@@ -17,7 +17,6 @@ import {getJwt} from '../Helpers/Jwt';
 class UserBooklist extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   state = {
@@ -41,9 +40,13 @@ class UserBooklist extends Component {
     this.setState({book: data, loading: false});
   }
 
+  handleClickCheckbox = (event) => {
+    this.props.handleChange(event.target.checked);
+  };
+
   handleChange = (name) => (event) => {
     this.setState({[name]: event.target.checked});
-    this.props.handleClickCheckBox(this.state.checkedBooks);
+    this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
   };
 
   render() {
@@ -87,6 +90,9 @@ class UserBooklist extends Component {
                     <TableRow key={book.id}>
                       <TableCell>
                         <Checkbox
+                          label='my checkbox'
+                          labelStyle={{color: 'white'}}
+                          iconStyle={{fill: 'white'}}
                           className={styles.checkBoxSize}
                           checked={this.state.checkedBook}
                           onChange={this.handleChange('checkedBook')}

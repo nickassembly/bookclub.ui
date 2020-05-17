@@ -1,5 +1,7 @@
 import React, {Fragment, Component} from 'react';
-import {withLocalize} from 'react-localize-redux';
+import {withStyles} from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core';
+import {blue} from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,12 +9,26 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
+import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import styles from './UserBooklist.css';
-import {getJwt} from '../Helpers/Jwt';
+import {green} from '@material-ui/core/colors';
+
+const styles = (theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  button: {
+    margin: 10,
+  },
+  checkBox: {
+    margin: 5,
+    backgroundColor: blue,
+  },
+});
 
 class UserBooklist extends Component {
   constructor(props) {
@@ -50,25 +66,7 @@ class UserBooklist extends Component {
   };
 
   render() {
-    let bookBody = '';
-    let bookRows = '';
-    let bookHeading = '';
-
-    bookHeading = (
-      <TableRow>
-        <TableCell>Isbn</TableCell>
-        <TableCell>Author</TableCell>
-        <TableCell>Title</TableCell>
-      </TableRow>
-    );
-
-    bookBody = (
-      <Table>
-        <TableHead>{bookHeading}</TableHead>
-        <TableBody>{bookRows}</TableBody>
-      </Table>
-    );
-
+    const {classes} = this.props;
     return (
       <div>
         {this.state.loading ? (
@@ -80,6 +78,7 @@ class UserBooklist extends Component {
               <Table size='small' aria-label='a dense table'>
                 <TableHead>
                   <TableRow>
+                    <TableCell align='center'>Selected</TableCell>
                     <TableCell align='center'>Isbn </TableCell>
                     <TableCell align='center'>Author</TableCell>
                     <TableCell align='center'>Title</TableCell>
@@ -90,20 +89,15 @@ class UserBooklist extends Component {
                     <TableRow key={book.id}>
                       <TableCell>
                         <Checkbox
-                          label='my checkbox'
-                          labelStyle={{color: 'white'}}
-                          iconStyle={{fill: 'white'}}
-                          className={styles.checkBoxSize}
+                          className={classes.checkBox}
                           checked={this.state.checkedBook}
                           onChange={this.handleChange('checkedBook')}
                           value='checkedBook'
-                          icon={<CheckBoxOutlineBlank className={styles.uncheckedBoxIconSize} />}
-                          checkedIcon={<CheckBoxIcon className={styles.checkedBoxIconSize} />}
+                          icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
+                          checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
                         />
                       </TableCell>
-                      <TableCell align='center' component='th' scope='row'>
-                        {book.isbn}
-                      </TableCell>
+                      <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>
                       <TableCell align='center'>{book.title}</TableCell>
                     </TableRow>
@@ -111,8 +105,14 @@ class UserBooklist extends Component {
                 </TableBody>
               </Table>
             </TableContainer>
-            <button>Add Book</button>
-            <button>Delete Book</button>
+            <div>
+              <Button className={classes.button} size='small' color='primary' variant='outlined'>
+                Add Book
+              </Button>
+              <Button className={classes.button} size='small' color='secondary' variant='outlined'>
+                Delete Book
+              </Button>
+            </div>
           </Fragment>
         )}
       </div>
@@ -120,4 +120,4 @@ class UserBooklist extends Component {
   }
 }
 
-export default withLocalize(UserBooklist);
+export default withStyles(styles, {withTheme: true})(UserBooklist);

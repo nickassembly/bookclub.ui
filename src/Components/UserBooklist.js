@@ -25,8 +25,7 @@ const styles = (theme) => ({
     margin: 10,
   },
   checkBox: {
-    margin: 5,
-    backgroundColor: blue,
+    color: 'black',
   },
 });
 

@@ -1,60 +1,60 @@
 import React, {Fragment, Component} from 'react';
+import {Grid} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 
 class AddBookForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isbn: '',
+      author: '',
+      title: '',
+      visibility: false,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {}
+  handleChange(event) {
+    this.setState({});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
 
   render() {
     return (
-      <Form>
+      <form onSubmit={this.handleSubmit}>
         <Grid container>
           <Grid item xs={6}>
-            <TextField
-              name='isbn'
-              variant='outlined'
-              label='Isbn'
-              value={values.isbn}
-              onChange={handleInputChange}
-              {...(errors.isbn && {error: true, helperText: errors.isbn})}
-            />
-            <TextField
+            <textField name='isbn' variant='outlined' label='Isbn' onChange={this.handleChange} />
+            <textfield
               name='author'
               variant='outlined'
               label='Author'
-              value={values.author}
-              onChange={handleInputChange}
-              {...(errors.author && {error: true, helperText: errors.author})}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              name='title'
-              variant='outlined'
-              label='Title'
-              value={values.title}
-              onChange={handleInputChange}
-              {...(errors.title && {error: true, helperText: errors.title})}
-            />
+            <textfield name='title' variant='outlined' label='Title' onChange={this.handleChange} />
 
             <div>
               <Button
+                onClick={this.handleChange}
                 variant='contained'
                 color='primary'
                 type='submit'
-                className={classes.smMargin}>
+                value='Submit'>
                 Submit
               </Button>
-              <Button variant='contained' className={classes.smMargin} onClick={resetForm}>
-                Reset
-              </Button>
+              <Button variant='contained'>Reset</Button>
             </div>
           </Grid>
         </Grid>
-      </Form>
+      </form>
     );
   }
 }

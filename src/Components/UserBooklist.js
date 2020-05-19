@@ -14,6 +14,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {green} from '@material-ui/core/colors';
+import AddBookForm from './AddBookForm';
 
 const styles = (theme) => ({
   root: {
@@ -36,6 +37,7 @@ class UserBooklist extends Component {
 
   state = {
     loading: true,
+    showModal: false,
     books: [],
     checkedBooks: this.props.checkedBooks,
     selectedBooks: this.props.selectedBooks,

@@ -1,3 +1,21 @@
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import AddBookForm from '../Components/AddBookForm';
+import {
+  closeWebAddBookmarkDialog,
+  // createWebBookmarkWithUsername,
+  itemIsLoading,
+  itemIsDoneLoading,
+} from '../actions/ui';
+import type {bookmarkInfoType} from '../actions/ui';
+
+import {
+  getCurrentUsername,
+  getWebBookmarkDialogInfo,
+  getModalIsOpen,
+  getIsWebBookmarkDialogOpen,
+} from '../selectors/current';
+
 const handleRequestSave = (bookmarkInfo: bookmarkInfoType) => (dispatch, getState) => {
   dispatch(itemIsLoading());
   const state = getState();

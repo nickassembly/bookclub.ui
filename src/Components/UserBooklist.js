@@ -14,7 +14,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {green} from '@material-ui/core/colors';
-import AddBookForm from './AddBookForm';
+import AddBookForm from '../Containers/AddBookFormContainer';
 
 const styles = (theme) => ({
   root: {
@@ -29,6 +29,10 @@ const styles = (theme) => ({
     color: 'black',
   },
 });
+
+const Props = {
+  webBookmarkDialogOpen: boolean,
+};
 
 class UserBooklist extends Component {
   constructor(props) {
@@ -68,6 +72,15 @@ class UserBooklist extends Component {
 
   render() {
     const {classes} = this.props;
+
+    const addBookForm = this.props.addBookFormOpen ? (
+      <Portal node={document && document.getElementById('modal')}>
+        <AddBookForm modalIsOpen />
+      </Portal>
+    ) : (
+      ''
+    );
+
     return (
       <div>
         {this.state.loading ? (

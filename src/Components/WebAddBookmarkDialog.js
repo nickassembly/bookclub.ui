@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Translate, withLocalize} from 'react-localize-redux';
-import webTranslations from './Translations/web.json';
+
 import {buttonStyle} from '../Global/GlobalStyles';
 
 type State = {
@@ -21,6 +21,7 @@ type State = {
     url?: string,
   },
 };
+
 type Props = {
   handleRequestCancel: () => mixed,
   webDialogIsOpen: boolean,
@@ -45,7 +46,6 @@ class WebAddBookmarkDialog extends Component<Props, State> {
 
   constructor(props) {
     super(props);
-    this.props.addTranslation(webTranslations);
   }
 
   state = {

@@ -1,3 +1,10 @@
+import uuidByString from 'uuid-by-string';
+
+export const ITEM_IS_LOADING = 'ITEM_IS_LOADING';
+export const ITEM_DONE_LOADING = 'ITEM_DONE_LOADING';
+export const WEB_ADD_BOOKMARK_DIALOG_OPEN = 'WEB_ADD_BOOKMARK_DIALOG_OPEN';
+export const WEB_ADD_BOOKMARK_DIALOG_CLOSE = 'WEB_ADD_BOOKMARK_DIALOG_CLOSE';
+
 export type bookmarkInfoType = {
   bookmarkId?: string,
   url: string,
@@ -16,13 +23,6 @@ export function itemIsDoneLoading() {
   };
 }
 
-export function openWebAddBookmarkDialog(username: string, bookmarkInfo: bookmarkInfoType) {
-  return {
-    type: WEB_ADD_BOOKMARK_DIALOG_OPEN,
-    username,
-    bookmarkInfo,
-  };
-}
 export function closeWebAddBookmarkDialog(username: string) {
   return {
     type: WEB_ADD_BOOKMARK_DIALOG_CLOSE,
@@ -37,3 +37,4 @@ export function createWebBookmarkWithUsername(username: string, bookmarkInfo: bo
   // username
   //  Console.log(bookmarkInfo.foldername);
   bookmarkInfo.bookmarkId = uuidByString(`${bookmarkInfo.url}, ${bookmarkInfo.siteName}`);
+}

@@ -14,8 +14,8 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {green} from '@material-ui/core/colors';
-import AddBookForm from '../Containers/AddBookFormContainer';
-
+//import AddBookForm from '../Containers/AddBookFormContainer';
+import {Portal} from 'react-portal';
 const styles = (theme) => ({
   root: {
     '& > *': {
@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
 });
 
-const Props = {
+type Props = {
   webBookmarkDialogOpen: boolean,
 };
 
@@ -73,13 +73,13 @@ class UserBooklist extends Component {
   render() {
     const {classes} = this.props;
 
-    const addBookForm = this.props.addBookFormOpen ? (
-      <Portal node={document && document.getElementById('modal')}>
-        <AddBookForm modalIsOpen />
-      </Portal>
-    ) : (
-      ''
-    );
+    // const addBookForm = this.props.addBookFormOpen ? (
+    //   <Portal node={document && document.getElementById('modal')}>
+    //     <AddBookForm modalIsOpen />
+    //   </Portal>
+    // ) : (
+    //   ''
+    // );
 
     return (
       <div>

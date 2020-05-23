@@ -1,7 +1,5 @@
 import React, {Fragment, Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import {createMuiTheme} from '@material-ui/core';
-import {blue} from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -17,6 +15,9 @@ import {green} from '@material-ui/core/colors';
 import AddBookForm from '../Containers/AddBookFormContainer';
 // import {Portal} from 'react-portal';
 
+import AddBookFormContainer from '../Containers/AddBookFormContainer';
+import AddBookForm from './AddBookForm';
+import {Portal} from 'react-portal';
 const styles = (theme) => ({
   root: {
     '& > *': {
@@ -72,6 +73,7 @@ class UserBooklist extends Component<Props, *> {
   };
   render() {
     const {classes} = this.props;
+<<<<<<< HEAD
     let addBookContent;
     if (this.state.bookFormDialogOpen) {
       addBookContent = (
@@ -80,6 +82,17 @@ class UserBooklist extends Component<Props, *> {
         />
       );
     }
+=======
+
+    const addBookForm = this.props.addBookFormOpen ? (
+      <Portal node={document && document.getElementById('modal')}>
+        <AddBookForm modalIsOpen />
+      </Portal>
+    ) : (
+      ''
+    );
+
+>>>>>>> b4759aea6aeca00d1858439d4c6c6b81548847c6
     return (
       <div>
         {this.state.loading ? (
@@ -120,7 +133,16 @@ class UserBooklist extends Component<Props, *> {
               </Table>
             </TableContainer>
             <div>
+<<<<<<< HEAD
               <Button className={classes.button} size='small' color='primary' variant='outlined' onClick={this.handleOpenAddBook}>
+=======
+              <Button
+                className={classes.button}
+                onClick={addBookForm.addBookFormOpen}
+                size='small'
+                color='primary'
+                variant='outlined'>
+>>>>>>> b4759aea6aeca00d1858439d4c6c6b81548847c6
                 Add Book
               </Button>
               <Button className={classes.button} size='small' color='secondary' variant='outlined'>

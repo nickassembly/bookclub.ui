@@ -14,8 +14,9 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {green} from '@material-ui/core/colors';
-//import AddBookForm from '../Containers/AddBookFormContainer';
-import {Portal} from 'react-portal';
+import AddBookForm from '../Containers/AddBookFormContainer';
+// import {Portal} from 'react-portal';
+
 const styles = (theme) => ({
   root: {
     '& > *': {
@@ -30,21 +31,18 @@ const styles = (theme) => ({
   },
 });
 
-type Props = {
-  webBookmarkDialogOpen: boolean,
-};
-
-class UserBooklist extends Component {
+class UserBooklist extends Component<Props, *> {
   constructor(props) {
     super(props);
   }
-
   state = {
     loading: true,
     showModal: false,
     books: [],
+    bookInfo: {},
     checkedBooks: this.props.checkedBooks,
     selectedBooks: this.props.selectedBooks,
+    bookFormDialogOpen: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -69,24 +67,26 @@ class UserBooklist extends Component {
     this.setState({[name]: event.target.checked});
     this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
   };
-
+  handleOpenAddBook = () => {
+    this.setState({bookFormDialogOpen: true});
+  };
   render() {
     const {classes} = this.props;
-
-    // const addBookForm = this.props.addBookFormOpen ? (
-    //   <Portal node={document && document.getElementById('modal')}>
-    //     <AddBookForm modalIsOpen />
-    //   </Portal>
-    // ) : (
-    //   ''
-    // );
-
+    let addBookContent;
+    if (this.state.bookFormDialogOpen) {
+      addBookContent = (
+        <AddBookForm
+          bookInfo={this.state.bookInfo}
+        />
+      );
+    }
     return (
       <div>
         {this.state.loading ? (
           <div>loading...</div>
         ) : (
           <Fragment>
+          <div>{addBookContent}</div>
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table size='small' aria-label='a dense table'>
@@ -120,7 +120,7 @@ class UserBooklist extends Component {
               </Table>
             </TableContainer>
             <div>
-              <Button className={classes.button} size='small' color='primary' variant='outlined'>
+              <Button className={classes.button} size='small' color='primary' variant='outlined' onClick={this.handleOpenAddBook}>
                 Add Book
               </Button>
               <Button className={classes.button} size='small' color='secondary' variant='outlined'>

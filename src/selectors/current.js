@@ -1,5 +1,12 @@
 import {createSelector} from 'reselect';
 
+export const getCurrentUsername = 'Joey';
+export const getBookInfo = {
+    bookId: '123',
+    title: 'Test Title',
+    author: 'Test Author',
+    isbn: '0987654321'
+};
 // export const getUser = (state) => state.user;
 // const getUserData = (state) => state.userData;
 
@@ -39,7 +46,6 @@ import {createSelector} from 'reselect';
 //   }
 // );
 
-export const getModalIsOpen = (state) => state.ui.modalIsOpen;
 
 // export const getIsWebBookmarkDialogOpen = createSelector(
 //   [getCurrentUserData],

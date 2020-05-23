@@ -1,7 +1,5 @@
 import React, {Fragment, Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import {createMuiTheme} from '@material-ui/core';
-import {blue} from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,8 +11,8 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import {green} from '@material-ui/core/colors';
-//import AddBookForm from '../Containers/AddBookFormContainer';
+import AddBookFormContainer from '../Containers/AddBookFormContainer';
+import AddBookForm from './AddBookForm';
 import {Portal} from 'react-portal';
 const styles = (theme) => ({
   root: {
@@ -73,13 +71,13 @@ class UserBooklist extends Component {
   render() {
     const {classes} = this.props;
 
-    // const addBookForm = this.props.addBookFormOpen ? (
-    //   <Portal node={document && document.getElementById('modal')}>
-    //     <AddBookForm modalIsOpen />
-    //   </Portal>
-    // ) : (
-    //   ''
-    // );
+    const addBookForm = this.props.addBookFormOpen ? (
+      <Portal node={document && document.getElementById('modal')}>
+        <AddBookForm modalIsOpen />
+      </Portal>
+    ) : (
+      ''
+    );
 
     return (
       <div>
@@ -120,7 +118,12 @@ class UserBooklist extends Component {
               </Table>
             </TableContainer>
             <div>
-              <Button className={classes.button} size='small' color='primary' variant='outlined'>
+              <Button
+                className={classes.button}
+                onClick={addBookForm.addBookFormOpen}
+                size='small'
+                color='primary'
+                variant='outlined'>
                 Add Book
               </Button>
               <Button className={classes.button} size='small' color='secondary' variant='outlined'>

@@ -43,7 +43,7 @@ class UserBooklist extends Component<Props, *> {
     bookInfo: {},
     checkedBooks: this.props.checkedBooks,
     selectedBooks: this.props.selectedBooks,
-    bookFormDialogOpen: false
+    bookFormDialogOpen: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -73,33 +73,17 @@ class UserBooklist extends Component<Props, *> {
   };
   render() {
     const {classes} = this.props;
-<<<<<<< HEAD
     let addBookContent;
     if (this.state.bookFormDialogOpen) {
-      addBookContent = (
-        <AddBookForm
-          bookInfo={this.state.bookInfo}
-        />
-      );
+      addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
     }
-=======
-
-    const addBookForm = this.props.addBookFormOpen ? (
-      <Portal node={document && document.getElementById('modal')}>
-        <AddBookForm modalIsOpen />
-      </Portal>
-    ) : (
-      ''
-    );
-
->>>>>>> b4759aea6aeca00d1858439d4c6c6b81548847c6
     return (
       <div>
         {this.state.loading ? (
           <div>loading...</div>
         ) : (
           <Fragment>
-          <div>{addBookContent}</div>
+            <div>{addBookContent}</div>
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table size='small' aria-label='a dense table'>
@@ -133,16 +117,12 @@ class UserBooklist extends Component<Props, *> {
               </Table>
             </TableContainer>
             <div>
-<<<<<<< HEAD
-              <Button className={classes.button} size='small' color='primary' variant='outlined' onClick={this.handleOpenAddBook}>
-=======
               <Button
                 className={classes.button}
-                onClick={addBookForm.addBookFormOpen}
                 size='small'
                 color='primary'
-                variant='outlined'>
->>>>>>> b4759aea6aeca00d1858439d4c6c6b81548847c6
+                variant='outlined'
+                onClick={this.handleOpenAddBook}>
                 Add Book
               </Button>
               <Button className={classes.button} size='small' color='secondary' variant='outlined'>

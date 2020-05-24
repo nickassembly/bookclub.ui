@@ -11,11 +11,9 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-// import {Portal} from 'react-portal';
 
 import AddBookFormContainer from '../Containers/AddBookFormContainer';
 import AddBookForm from './AddBookForm';
-import {Portal} from 'react-portal';
 const styles = (theme) => ({
   root: {
     '& > *': {

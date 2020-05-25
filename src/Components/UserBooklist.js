@@ -65,7 +65,7 @@ class UserBooklist extends Component<Props, *> {
     this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
   };
   handleOpenAddBook = () => {
-    this.setState({bookFormDialogOpen: true});
+    this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
   };
   render() {
     const {classes} = this.props;

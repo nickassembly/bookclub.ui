@@ -27,9 +27,11 @@ class AddBookForm extends Component {
         author: '',
         title: '',
       },
+      addFormShow: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleHide = this.handleHide.bind(this);
   }
 
   handleChange(event) {
@@ -42,72 +44,75 @@ class AddBookForm extends Component {
   }
 
   handleResetForm(event) {
-    this.setState({isbn: '', title: ''});
-    event.preventDefault();
+    document.getElementById('addBookForm').reset();
   }
 
-  handleCancelForm(event) {
-    this.setState({isbn: '', title: ''});
-    event.preventDefault();
+  handleHide() {
+    this.setState({addFormShow: !this.state.addFormShow});
   }
 
   render() {
     const {classes} = this.props;
+    const {addFormShow} = this.state;
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <Grid container>
-            <Grid item xs={6}>
-              <TextField
-                name='isbn'
-                variant='outlined'
-                id='standard-basic'
-                label='ISBN'
-                className={classes.inputs}
-                onChange={this.handleChange}
-              />
-              <TextField
-                name='author'
-                variant='outlined'
-                label='Author'
-                className={classes.inputs}
-                onChange={this.handleChange}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                name='title'
-                variant='outlined'
-                label='Title'
-                className={classes.inputs}
-                onChange={this.handleChange}
-              />
-              <div>
-                <Button
-                  variant='contained'
-                  className={classes.button}
-                  color='primary'
-                  type='submit'
-                  value='Submit'>
-                  Submit
-                </Button>
-                <Button
-                  variant='contained'
-                  className={classes.button}
-                  onClick={this.handleResetForm}>
-                  Reset
-                </Button>
-                <Button
-                  variant='contained'
-                  className={classes.button}
-                  onClick={this.handleCancelForm}>
-                  Cancel
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-        </form>
-      </React.Fragment>
+      <div>
+        {addFormShow && (
+          <React.Fragment>
+            <form id='addBookForm' onSubmit={this.handleSubmit}>
+              <Grid container>
+                <Grid item xs={6}>
+                  <TextField
+                    name='isbn'
+                    variant='outlined'
+                    id='standard-basic'
+                    label='ISBN'
+                    className={classes.inputs}
+                    onChange={this.handleChange}
+                  />
+                  <TextField
+                    name='author'
+                    variant='outlined'
+                    label='Author'
+                    className={classes.inputs}
+                    onChange={this.handleChange}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    name='title'
+                    variant='outlined'
+                    label='Title'
+                    className={classes.inputs}
+                    onChange={this.handleChange}
+                  />
+                  <div>
+                    <Button
+                      variant='contained'
+                      className={classes.button}
+                      color='primary'
+                      type='submit'
+                      value='Submit'>
+                      Submit
+                    </Button>
+                    <Button
+                      variant='contained'
+                      className={classes.button}
+                      onClick={this.handleResetForm}>
+                      Reset
+                    </Button>
+                    <Button
+                      variant='contained'
+                      className={classes.button}
+                      onClick={() => this.handleHide()}>
+                      Cancel
+                    </Button>
+                  </div>
+                </Grid>
+              </Grid>
+            </form>
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 }

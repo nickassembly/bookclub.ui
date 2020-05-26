@@ -41,6 +41,15 @@ class AddBookForm extends Component {
   handleSubmit(event) {
     this.props.addBookWithUsername(this.state.book);
     event.preventDefault();
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({isbn: 'test'}),
+    };
+    fetch('https://bookclubapi.azurewebsites.net/api/v1/books', requestOptions)
+      .then((response) => response.json())
+      .then((data) => this.setState({isbn: data.isbn}));
   }
 
   handleResetForm(event) {
@@ -54,6 +63,7 @@ class AddBookForm extends Component {
   render() {
     const {classes} = this.props;
     const {addFormShow} = this.state;
+
     return (
       <div>
         {addFormShow && (

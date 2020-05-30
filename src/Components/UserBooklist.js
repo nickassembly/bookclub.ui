@@ -40,6 +40,7 @@ class UserBooklist extends Component<Props, *> {
     checkedBooks: this.props.checkedBooks,
     selectedBooks: this.props.selectedBooks,
     bookFormDialogOpen: false,
+    showCheckbox: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -64,12 +65,19 @@ class UserBooklist extends Component<Props, *> {
     this.setState({[name]: event.target.checked});
     this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
   };
+
   handleOpenAddBook = () => {
     this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
   };
+
+  toggleCheckbox = () => {
+    this.setState({showCheckbox: !this.state.showCheckbox});
+  };
+
   render() {
     const {classes} = this.props;
     let addBookContent;
+    let showCheckbox = this.state.showCheckbox;
     if (this.state.bookFormDialogOpen) {
       addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
     }
@@ -95,14 +103,16 @@ class UserBooklist extends Component<Props, *> {
                   {this.state.book.map((book) => (
                     <TableRow key={book.id}>
                       <TableCell>
-                        <Checkbox
-                          className={classes.checkBox}
-                          checked={this.state.checkedBook}
-                          onChange={this.handleChange('checkedBook')}
-                          value='checkedBook'
-                          icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
-                          checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
-                        />
+                        {showCheckbox && (
+                          <Checkbox
+                            className={classes.checkBox}
+                            checked={this.state.checkedBook}
+                            onChange={this.handleChange('checkedBook')}
+                            value='checkedBook'
+                            icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
+                            checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
+                          />
+                        )}
                       </TableCell>
                       <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>
@@ -121,7 +131,12 @@ class UserBooklist extends Component<Props, *> {
                 onClick={this.handleOpenAddBook}>
                 Add Book
               </Button>
-              <Button className={classes.button} size='small' color='secondary' variant='outlined'>
+              <Button
+                className={classes.button}
+                onClick={this.toggleCheckbox}
+                size='small'
+                color='secondary'
+                variant='outlined'>
                 Delete Book
               </Button>
             </div>

@@ -11,8 +11,9 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
+import {Delete} from '../actions/Book';
 
-import AddBookFormContainer from '../Containers/AddBookFormContainer';
+
 import AddBookForm from './AddBookForm';
 const styles = (theme) => ({
   root: {
@@ -28,27 +29,21 @@ const styles = (theme) => ({
   },
 });
 
-class UserBooklist extends Component<Props, *> {
+class UserBooklist extends Component {
   constructor(props) {
     super(props);
+    this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
+    this.handleDeleteBook = this.handleDeleteBook.bind(this);
   }
   state = {
     loading: true,
     showModal: false,
     books: [],
     bookInfo: {},
-    checkedBooks: this.props.checkedBooks,
-    selectedBooks: this.props.selectedBooks,
-    bookFormDialogOpen: false,
-    showCheckbox: false,
+    checkedBooks: [],
+    bookFormDialogOpen: false
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      checkedBook: nextProps.checkedBook,
-      selectedBooks: nextProps.selectedBooks,
-    });
-  }
 
   async componentDidMount() {
     const url = 'https://bookclubapi.azurewebsites.net/api/v1/books';
@@ -57,27 +52,27 @@ class UserBooklist extends Component<Props, *> {
     this.setState({book: data, loading: false});
   }
 
-  handleClickCheckbox = (event) => {
-    this.props.handleChange(event.target.checked);
-  };
-
-  handleChange = (name) => (event) => {
-    this.setState({[name]: event.target.checked});
-    this.handleClickCheckbox = this.handleClickCheckbox.bind(this);
+  handleClickCheckbox = (id) => (event) => {
+    const textId = id.toString();
+    if (this.state.checkedBooks[textId]) {
+      this.state.checkedBooks.filter(bookid => bookid !== textId)
+    } else {
+      this.state.checkedBooks.push(textId)
+    }
   };
 
   handleOpenAddBook = () => {
     this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
   };
 
-  toggleCheckbox = () => {
-    this.setState({showCheckbox: !this.state.showCheckbox});
+  handleDeleteBook = () => {
+    this.state.checkedBooks.forEach(bookId => Delete(bookId));
+    this.setState({checkedBooks: []});
   };
 
   render() {
     const {classes} = this.props;
     let addBookContent;
-    let showCheckbox = this.state.showCheckbox;
     if (this.state.bookFormDialogOpen) {
       addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
     }
@@ -103,16 +98,14 @@ class UserBooklist extends Component<Props, *> {
                   {this.state.book.map((book) => (
                     <TableRow key={book.id}>
                       <TableCell>
-                        {showCheckbox && (
                           <Checkbox
                             className={classes.checkBox}
-                            checked={this.state.checkedBook}
-                            onChange={this.handleChange('checkedBook')}
-                            value='checkedBook'
+                            checked={this.state.checkedBooks[book.id]}
+                            onChange={this.handleClickCheckbox(book.id)}
                             icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
                             checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
                           />
-                        )}
+
                       </TableCell>
                       <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>
@@ -133,7 +126,7 @@ class UserBooklist extends Component<Props, *> {
               </Button>
               <Button
                 className={classes.button}
-                onClick={this.toggleCheckbox}
+                onClick={this.handleDeleteBook}
                 size='small'
                 color='secondary'
                 variant='outlined'>

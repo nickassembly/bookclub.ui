@@ -20,7 +20,7 @@ export const getAll = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const create = (data, onSuccess) => (dispatch) => {
+export const Create = (data, onSuccess) => (dispatch) => {
   api
     .book()
     .create(data)
@@ -34,7 +34,7 @@ export const create = (data, onSuccess) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const update = (id, data, onSuccess) => (dispatch) => {
+export const Update = (id, data, onSuccess) => (dispatch) => {
   api
     .book()
     .update(id, data)
@@ -51,13 +51,7 @@ export const update = (id, data, onSuccess) => (dispatch) => {
 export const Delete = (id, onSuccess) => (dispatch) => {
   api
     .book()
-    .delete(id)
-    .then((res) => {
-      dispatch({
-        type: ACTION_TYPES.DELETE,
-        payload: id,
-      });
-      onSuccess();
-    })
+    .deleteById(id)
+    .then(onSuccess())
     .catch((err) => console.log(err));
 };

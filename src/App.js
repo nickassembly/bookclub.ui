@@ -1,16 +1,10 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {Store} from './actions/Store';
 import {Provider} from 'react-redux';
 import UserBooklist from './Components/UserBooklist';
-import {Container} from '@material-ui/core';
 import {ToastProvider} from 'react-toast-notifications';
-import {Navbar} from './Components/Navbar';
-import Login from './Components/Login';
-import User from './Components/User';
-import AuthenticatedComponent from './Components/AuthenticatedComponent';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Recommendations from './Components/Recommendations';
 
 function App() {
   return (

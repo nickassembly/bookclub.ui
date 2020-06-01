@@ -1,17 +1,11 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getCurrentBookId, getCurrentBookKey} from '../selectors/current';
-import {selectBook, unselectBook} from '../actions/ui';
+import {Delete} from '../actions/Books';
 
-const handleClickCheckBox = (checkedBook) => (dispatch, getState) => {
+const deleteBook = (checkedBooks) => (dispatch, getState) => {
   const state = getState();
-  const currentBookId = getCurrentBookId(state);
-  const currentBookKey = getCurrentBookKey(state);
-  if (!checkedBook) {
-    dispatch(selectBook(currentBookKey));
-  } else {
-    dispatch(unselectBook(currentBookKey));
-  }
+  checkedBooks.forEach(bookId => dispatch(Delete(bookId)));
 };
 
 function mapStateToProps(state, ownProps) {
@@ -23,7 +17,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({handleClickCheckBox}, dispatch);
+  return bindActionCreators({deleteBook}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserBooklist);

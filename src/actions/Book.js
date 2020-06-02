@@ -1,4 +1,4 @@
-import api from './Api';
+import api from './api.js';
 
 export const ACTION_TYPES = {
   CREATE: 'CREATE',

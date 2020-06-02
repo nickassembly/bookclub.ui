@@ -13,7 +13,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import {Delete} from '../actions/Book';
 
-
 import AddBookForm from './AddBookForm';
 const styles = (theme) => ({
   root: {
@@ -41,9 +40,8 @@ class UserBooklist extends Component {
     books: [],
     bookInfo: {},
     checkedBooks: [],
-    bookFormDialogOpen: false
+    bookFormDialogOpen: false,
   };
-
 
   async componentDidMount() {
     const url = 'https://bookclubapi.azurewebsites.net/api/v1/books';
@@ -55,9 +53,9 @@ class UserBooklist extends Component {
   handleClickCheckbox = (id) => (event) => {
     const textId = id.toString();
     if (this.state.checkedBooks[textId]) {
-      this.state.checkedBooks.filter(bookid => bookid !== textId)
+      this.state.checkedBooks.filter((bookid) => bookid !== textId);
     } else {
-      this.state.checkedBooks.push(textId)
+      this.state.checkedBooks.push(textId);
     }
   };
 
@@ -66,7 +64,8 @@ class UserBooklist extends Component {
   };
 
   handleDeleteBook = () => {
-    this.state.checkedBooks.forEach(bookId => Delete(bookId));
+    console.log('delete clicked');
+    this.state.checkedBooks.forEach((bookId) => Delete(bookId));
     this.setState({checkedBooks: []});
   };
 
@@ -98,14 +97,13 @@ class UserBooklist extends Component {
                   {this.state.book.map((book) => (
                     <TableRow key={book.id}>
                       <TableCell>
-                          <Checkbox
-                            className={classes.checkBox}
-                            checked={this.state.checkedBooks[book.id]}
-                            onChange={this.handleClickCheckbox(book.id)}
-                            icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
-                            checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
-                          />
-
+                        <Checkbox
+                          className={classes.checkBox}
+                          checked={this.state.checkedBooks[book.id]}
+                          onChange={this.handleClickCheckbox(book.id)}
+                          icon={<CheckBoxOutlineBlank className={classes.checkBox} />}
+                          checkedIcon={<CheckBoxIcon className={classes.checkBox} />}
+                        />
                       </TableCell>
                       <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>

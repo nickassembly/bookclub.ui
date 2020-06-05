@@ -64,7 +64,6 @@ class UserBooklist extends Component {
   };
 
   handleDeleteBook = () => {
-    console.log('delete clicked');
     this.state.checkedBooks.forEach((bookId) => Delete(bookId));
     this.setState({checkedBooks: []});
   };

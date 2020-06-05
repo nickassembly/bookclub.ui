@@ -4,6 +4,7 @@ const baseUrl = 'https://bookclubapi.azurewebsites.net/api/v1/';
 
 export default {
   book(url = baseUrl + 'books') {
+    console.log('api called');
     return {
       getAll: () => axios.get(url),
       getById: (id) => axios.get(url + '/' + id),

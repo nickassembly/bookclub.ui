@@ -8,6 +8,7 @@ export const ACTION_TYPES = {
 };
 
 export const getAll = () => (dispatch) => {
+  console.log('Book Actions');
   api
     .book()
     .getAll()

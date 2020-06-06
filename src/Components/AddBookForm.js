@@ -3,6 +3,7 @@ import {Grid} from '@material-ui/core';
 import {Button} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
+import axios from 'axios';
 
 const styles = (theme) => ({
   root: {
@@ -30,7 +31,7 @@ class AddBookForm extends Component {
       addFormShow: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //  this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
   }
 
@@ -38,19 +39,31 @@ class AddBookForm extends Component {
     this.setState({});
   }
 
-  handleSubmit(event) {
-    this.props.addBookWithUsername(this.state.book);
-    event.preventDefault();
+  handleAddBook = (bookInfo) => {
+    axios({
+      method: 'post',
+      url: 'https://bookclubapi.azurewebsites.net/api/v1/books',
+      data: {
+        isbn: bookInfo.isbn,
+        author: bookInfo.author,
+        title: bookInfo.title,
+      },
+    });
+  };
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({isbn: 'test'}),
-    };
-    fetch('https://bookclubapi.azurewebsites.net/api/v1/books', requestOptions)
-      .then((response) => response.json())
-      .then((data) => this.setState({isbn: data.isbn}));
-  }
+  // handleSubmit(event) {
+  //   this.props.addBookWithUsername(this.state.book);
+  //   event.preventDefault();
+
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify({isbn: 'test'}),
+  //   };
+  //   fetch('https://bookclubapi.azurewebsites.net/api/v1/books', requestOptions)
+  //     .then((response) => response.json())
+  //     .then((data) => this.setState({isbn: data.isbn}));
+  // }
 
   handleResetForm(event) {
     document.getElementById('addBookForm').reset();
@@ -99,6 +112,7 @@ class AddBookForm extends Component {
                     <Button
                       variant='contained'
                       className={classes.button}
+                      onClick={this.handleAddBook}
                       color='primary'
                       type='submit'
                       value='Submit'>

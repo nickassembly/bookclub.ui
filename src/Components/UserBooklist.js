@@ -11,10 +11,10 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-//import {Delete} from '../actions/Book';
 
 import AddBookForm from './AddBookForm';
 import axios from 'axios';
+
 const styles = (theme) => ({
   root: {
     '& > *': {
@@ -65,11 +65,12 @@ class UserBooklist extends Component {
   };
 
   handleDeleteBook = () => {
-    let bookId = this.checked;
-    axios.delete('https://bookclubapi.azurewebsites.net/api/v1/books/' + bookId).then((res) => {
-      console.log(res);
-      this.setState({checkedBooks: []});
-    });
+    this.state.checkedBooks.forEach((bookId) =>
+      axios.delete('https://bookclubapi.azurewebsites.net/api/v1/books/' + bookId).then((res) => {
+        console.log(res);
+        this.setState({checkedBooks: []});
+      })
+    );
   };
 
   render() {

@@ -31,39 +31,26 @@ class AddBookForm extends Component {
       addFormShow: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    //  this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
   }
 
   handleChange(event) {
-    this.setState({});
+    this.setState({[event.target.name]: event.target.value});
   }
 
-  handleAddBook = (bookInfo) => {
-    axios({
-      method: 'post',
-      url: 'https://bookclubapi.azurewebsites.net/api/v1/books',
-      data: {
-        isbn: bookInfo.isbn,
-        author: bookInfo.author,
-        title: bookInfo.title,
-      },
-    });
-  };
-
-  // handleSubmit(event) {
-  //   this.props.addBookWithUsername(this.state.book);
-  //   event.preventDefault();
-
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify({isbn: 'test'}),
-  //   };
-  //   fetch('https://bookclubapi.azurewebsites.net/api/v1/books', requestOptions)
-  //     .then((response) => response.json())
-  //     .then((data) => this.setState({isbn: data.isbn}));
-  // }
+  handleSubmit(event) {
+    event.preventDefault();
+    axios
+      .post('https://bookclubapi.azurewebsites.net/api/v1/books', {
+        author: this.state.author,
+        title: this.state.title,
+        isbn: this.state.isbn,
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+  }
 
   handleResetForm(event) {
     document.getElementById('addBookForm').reset();
@@ -86,6 +73,7 @@ class AddBookForm extends Component {
                 <Grid item xs={6}>
                   <TextField
                     name='isbn'
+                    value={this.state.value}
                     variant='outlined'
                     id='standard-basic'
                     label='ISBN'
@@ -94,6 +82,7 @@ class AddBookForm extends Component {
                   />
                   <TextField
                     name='author'
+                    value={this.state.value}
                     variant='outlined'
                     label='Author'
                     className={classes.inputs}
@@ -103,6 +92,7 @@ class AddBookForm extends Component {
                 <Grid item xs={6}>
                   <TextField
                     name='title'
+                    value={this.state.value}
                     variant='outlined'
                     label='Title'
                     className={classes.inputs}
@@ -112,7 +102,6 @@ class AddBookForm extends Component {
                     <Button
                       variant='contained'
                       className={classes.button}
-                      onClick={this.handleAddBook}
                       color='primary'
                       type='submit'
                       value='Submit'>

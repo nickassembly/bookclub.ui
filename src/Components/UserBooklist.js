@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
+import CreateIcon from '@material-ui/icons/Create';
 
 import AddBookForm from './AddBookForm';
 import axios from 'axios';
@@ -26,6 +27,11 @@ const styles = (theme) => ({
   },
   checkBox: {
     color: 'black',
+  },
+  editButton: {
+    '&:hover': {
+      color: '#a6ada8',
+    },
   },
 });
 
@@ -59,6 +65,8 @@ class UserBooklist extends Component {
       this.state.checkedBooks.push(textId);
     }
   };
+
+  handleEdit = (id) => (event) => {};
 
   handleOpenAddBook = () => {
     this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
@@ -95,6 +103,7 @@ class UserBooklist extends Component {
                     <TableCell align='center'>Isbn </TableCell>
                     <TableCell align='center'>Author</TableCell>
                     <TableCell align='center'>Title</TableCell>
+                    <TableCell align='center'>Edit</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -112,6 +121,12 @@ class UserBooklist extends Component {
                       <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>
                       <TableCell align='center'>{book.title}</TableCell>
+                      <TableCell>
+                        <CreateIcon
+                          className={classes.editButton}
+                          onClick={this.handleEdit(book.id)}
+                        />
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

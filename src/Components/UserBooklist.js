@@ -48,6 +48,7 @@ class UserBooklist extends Component {
     bookInfo: {},
     checkedBooks: [],
     bookFormDialogOpen: false,
+    isEdit: false,
   };
 
   async componentDidMount() {
@@ -66,7 +67,9 @@ class UserBooklist extends Component {
     }
   };
 
-  handleEdit = (id) => (event) => {};
+  handleEdit = (id) => (event) => {
+    this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen, isEdit: true});
+  };
 
   handleOpenAddBook = () => {
     this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
@@ -84,8 +87,12 @@ class UserBooklist extends Component {
   render() {
     const {classes} = this.props;
     let addBookContent;
+    let editBookContent;
     if (this.state.bookFormDialogOpen) {
       addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
+    }
+    if (this.state.bookFormDialogOpen) {
+      editBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
     }
     return (
       <div>
@@ -94,6 +101,7 @@ class UserBooklist extends Component {
         ) : (
           <Fragment>
             <div>{addBookContent}</div>
+            {this.state.isEdit ? <div>{editBookContent}</div> : ''}
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table size='small' aria-label='a dense table'>

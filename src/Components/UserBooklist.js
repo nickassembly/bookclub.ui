@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
 
 import AddBookForm from './AddBookForm';
+import EditBookForm from './EditBookForm';
 import axios from 'axios';
 
 const styles = (theme) => ({
@@ -48,7 +49,7 @@ class UserBooklist extends Component {
     bookInfo: {},
     checkedBooks: [],
     bookFormDialogOpen: false,
-    isEdit: false,
+    editBookDialogOpen: false,
   };
 
   async componentDidMount() {
@@ -67,8 +68,9 @@ class UserBooklist extends Component {
     }
   };
 
-  handleEdit = (id) => (event) => {
-    this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen, isEdit: true});
+  handleEditBook = (id) => (event) => {
+    this.setState({editBookDialogOpen: !this.state.editBookDialogOpen});
+    console.log(`${id} clicked`);
   };
 
   handleOpenAddBook = () => {
@@ -91,8 +93,8 @@ class UserBooklist extends Component {
     if (this.state.bookFormDialogOpen) {
       addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
     }
-    if (this.state.bookFormDialogOpen) {
-      editBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
+    if (this.state.editBookDialogOpen) {
+      editBookContent = <EditBookForm bookInfo={this.state.bookInfo} />;
     }
     return (
       <div>
@@ -101,7 +103,7 @@ class UserBooklist extends Component {
         ) : (
           <Fragment>
             <div>{addBookContent}</div>
-            {this.state.isEdit ? <div>{editBookContent}</div> : ''}
+            <div>{editBookContent}</div>
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table size='small' aria-label='a dense table'>
@@ -132,7 +134,7 @@ class UserBooklist extends Component {
                       <TableCell>
                         <CreateIcon
                           className={classes.editButton}
-                          onClick={this.handleEdit(book.id)}
+                          onClick={this.handleEditBook(book.id)}
                         />
                       </TableCell>
                     </TableRow>

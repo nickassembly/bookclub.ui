@@ -1,4 +1,4 @@
-import React, {Fragment, Component} from 'react';
+import React, {Component} from 'react';
 import {Grid} from '@material-ui/core';
 import {Button} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -60,6 +60,24 @@ class EditBookForm extends Component {
     this.setState({editFormShow: !this.state.editFormShow});
   }
 
+  handleChangeIsbn(event) {
+    const bookInfo = this.state.bookInfo;
+    bookInfo.isbn = event.target.value;
+    this.setState({bookInfo: bookInfo});
+  }
+
+  handleChangeAuthor(event) {
+    const bookInfo = this.state.bookInfo;
+    bookInfo.author = event.target.value;
+    this.setState({bookInfo: bookInfo});
+  }
+
+  handleChangeTitle(event) {
+    const bookInfo = this.state.bookInfo;
+    bookInfo.title = event.target.value;
+    this.setState({bookInfo: bookInfo});
+  }
+
   render() {
     const {classes} = this.props;
     const {editFormShow} = this.state;
@@ -73,30 +91,31 @@ class EditBookForm extends Component {
                 <Grid item xs={6}>
                   <TextField
                     name='isbn'
-                    value={this.state.value}
+                    defaultValue={this.props.isbn}
                     variant='outlined'
                     id='standard-basic'
                     label='ISBN'
                     className={classes.inputs}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeIsbn.bind(this)}
+                    value={this.state.bookInfo.isbn}
                   />
                   <TextField
                     name='author'
-                    value={this.state.value}
                     variant='outlined'
                     label='Author'
                     className={classes.inputs}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeAuthor.bind(this)}
+                    value={this.state.bookInfo.author}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
                     name='title'
-                    value={this.state.value}
                     variant='outlined'
                     label='Title'
                     className={classes.inputs}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeTitle.bind(this)}
+                    value={this.state.bookInfo.title}
                   />
                   <div>
                     <Button

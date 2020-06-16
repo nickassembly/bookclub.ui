@@ -70,7 +70,7 @@ class UserBooklist extends Component {
 
   handleEditBook = (id) => (event) => {
     this.setState({editBookDialogOpen: !this.state.editBookDialogOpen});
-    console.log(`${id} clicked`);
+    this.setState({bookInfo: {isbn: 'edit', author: 'edit', title: 'edit'}});
   };
 
   handleOpenAddBook = () => {

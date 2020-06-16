@@ -35,6 +35,11 @@ class EditBookForm extends Component {
     this.handleHide = this.handleHide.bind(this);
   }
 
+  componentDidMount() {
+    const {bookInfo} = this.props;
+    this.setState({bookInfo});
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
@@ -60,24 +65,6 @@ class EditBookForm extends Component {
     this.setState({editFormShow: !this.state.editFormShow});
   }
 
-  handleChangeIsbn(event) {
-    const bookInfo = this.state.bookInfo;
-    bookInfo.isbn = event.target.value;
-    this.setState({bookInfo: bookInfo});
-  }
-
-  handleChangeAuthor(event) {
-    const bookInfo = this.state.bookInfo;
-    bookInfo.author = event.target.value;
-    this.setState({bookInfo: bookInfo});
-  }
-
-  handleChangeTitle(event) {
-    const bookInfo = this.state.bookInfo;
-    bookInfo.title = event.target.value;
-    this.setState({bookInfo: bookInfo});
-  }
-
   render() {
     const {classes} = this.props;
     const {editFormShow} = this.state;
@@ -91,12 +78,10 @@ class EditBookForm extends Component {
                 <Grid item xs={6}>
                   <TextField
                     name='isbn'
-                    defaultValue={this.props.isbn}
                     variant='outlined'
                     id='standard-basic'
-                    label='ISBN'
+                    label='Isbn'
                     className={classes.inputs}
-                    onChange={this.handleChangeIsbn.bind(this)}
                     value={this.state.bookInfo.isbn}
                   />
                   <TextField
@@ -104,7 +89,6 @@ class EditBookForm extends Component {
                     variant='outlined'
                     label='Author'
                     className={classes.inputs}
-                    onChange={this.handleChangeAuthor.bind(this)}
                     value={this.state.bookInfo.author}
                   />
                 </Grid>
@@ -114,7 +98,6 @@ class EditBookForm extends Component {
                     variant='outlined'
                     label='Title'
                     className={classes.inputs}
-                    onChange={this.handleChangeTitle.bind(this)}
                     value={this.state.bookInfo.title}
                   />
                   <div>

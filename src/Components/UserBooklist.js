@@ -68,9 +68,15 @@ class UserBooklist extends Component {
     }
   };
 
-  handleEditBook = (id) => (event) => {
+  handleEditBook = (book) => () => {
     this.setState({editBookDialogOpen: !this.state.editBookDialogOpen});
-    this.setState({bookInfo: {isbn: 'edit', author: 'edit', title: 'edit'}});
+    this.setState({
+      bookInfo: {
+        isbn: book.isbn,
+        author: book.author,
+        title: book.title,
+      },
+    });
   };
 
   handleOpenAddBook = () => {
@@ -134,7 +140,7 @@ class UserBooklist extends Component {
                       <TableCell>
                         <CreateIcon
                           className={classes.editButton}
-                          onClick={this.handleEditBook(book.id)}
+                          onClick={this.handleEditBook(book)}
                         />
                       </TableCell>
                     </TableRow>

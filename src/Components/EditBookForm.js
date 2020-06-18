@@ -33,6 +33,7 @@ class EditBookForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +44,16 @@ class EditBookForm extends Component {
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
+
+  handleClick = () => () => {
+    this.setState({
+      bookInfo: {
+        isbn: '',
+        author: '',
+        title: '',
+      },
+    });
+  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -83,6 +94,7 @@ class EditBookForm extends Component {
                     label='Isbn'
                     className={classes.inputs}
                     value={this.state.bookInfo.isbn}
+                    onClick={this.handleClick()}
                   />
                   <TextField
                     name='author'
@@ -90,6 +102,7 @@ class EditBookForm extends Component {
                     label='Author'
                     className={classes.inputs}
                     value={this.state.bookInfo.author}
+                    onClick={this.handleClick()}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -99,6 +112,7 @@ class EditBookForm extends Component {
                     label='Title'
                     className={classes.inputs}
                     value={this.state.bookInfo.title}
+                    onClick={this.handleClick()}
                   />
                   <div>
                     <Button

@@ -33,7 +33,7 @@ class EditBookForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
   }
 
   componentDidMount() {
@@ -45,20 +45,19 @@ class EditBookForm extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleClick = () => () => {
-    this.setState({
-      bookInfo: {
-        isbn: '',
-        author: '',
-        title: '',
-      },
-    });
-  };
+  updateInputValue(event) {
+    const {
+      target: {value},
+    } = event;
+    this.setState({bookInfo: value});
+  }
 
   handleSubmit(event) {
+    let bookId = this.props.bookId;
+    console.log(bookId);
     event.preventDefault();
     axios
-      .put('https://bookclubapi.azurewebsites.net/api/v1/books', {
+      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${bookId}`, {
         author: this.state.author,
         title: this.state.title,
         isbn: this.state.isbn,
@@ -94,7 +93,7 @@ class EditBookForm extends Component {
                     label='Isbn'
                     className={classes.inputs}
                     value={this.state.bookInfo.isbn}
-                    onClick={this.handleClick()}
+                    onChange={this.updateInputValue}
                   />
                   <TextField
                     name='author'
@@ -102,7 +101,7 @@ class EditBookForm extends Component {
                     label='Author'
                     className={classes.inputs}
                     value={this.state.bookInfo.author}
-                    onClick={this.handleClick()}
+                    onClick={this.updateInputValue}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -112,7 +111,7 @@ class EditBookForm extends Component {
                     label='Title'
                     className={classes.inputs}
                     value={this.state.bookInfo.title}
-                    onClick={this.handleClick()}
+                    onClick={this.updateInputValue}
                   />
                   <div>
                     <Button

@@ -24,9 +24,9 @@ class EditBookForm extends Component {
     super(props);
     this.state = {
       bookInfo: {
-        isbn: '',
-        author: '',
-        title: '',
+        isbn: this.state.isbn,
+        author: this.state.author,
+        title: this.state.title,
       },
       editFormShow: true,
     };
@@ -34,11 +34,6 @@ class EditBookForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
-  }
-
-  componentDidMount() {
-    const {bookInfo} = this.props;
-    this.setState({bookInfo});
   }
 
   handleChange(event) {
@@ -53,11 +48,9 @@ class EditBookForm extends Component {
   }
 
   handleSubmit(event) {
-    let bookId = this.props.bookId;
-    console.log(bookId);
     event.preventDefault();
     axios
-      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${bookId}`, {
+      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${4}`, {
         author: this.state.author,
         title: this.state.title,
         isbn: this.state.isbn,

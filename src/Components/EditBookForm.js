@@ -22,22 +22,20 @@ const styles = (theme) => ({
 class EditBookForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      bookInfo: {
-        isbn: this.state.isbn,
-        author: this.state.author,
-        title: this.state.title,
-      },
-      editFormShow: true,
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
   }
+  state = {
+    editFormShow: true,
+    bookInfo: this.props.bookInfo
+  };
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+    const name = event.target.name;
+    const field = `this.state.bookInfo.${name}`;
+    this.setState({field: event.target.value});
   }
 
   updateInputValue(event) {
@@ -46,21 +44,19 @@ class EditBookForm extends Component {
     } = event;
     this.setState({bookInfo: value});
   }
-
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
     axios
-      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${4}`, {
-        author: this.state.author,
-        title: this.state.title,
-        isbn: this.state.isbn,
+      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${this.props.bookInfo.id}`, {
+        author: this.state.bookInfo.author,
+        title: this.state.bookInfo.title,
+        isbn: this.state.bookInfo.isbn,
       })
       .then(function (response) {
         console.log(response);
       });
   }
 
-  handleResetForm(event) {
+  handleResetForm() {
     document.getElementById('editBookForm').reset();
   }
 

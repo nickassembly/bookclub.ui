@@ -13,7 +13,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import AddBookForm from './AddBookForm';
 import CreateIcon from '@material-ui/icons/Create';
-import AddBookForm from './AddBookForm';
 import EditBookForm from './EditBookForm';
 import axios from 'axios';
 
@@ -75,7 +74,7 @@ class UserBooklist extends Component {
         isbn: book.isbn,
         author: book.author,
         title: book.title,
-        id: book.id
+        id: book.id,
       },
     });
   };

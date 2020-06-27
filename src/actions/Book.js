@@ -1,4 +1,4 @@
-import api from './Api';
+import api from './api.js';
 
 export const ACTION_TYPES = {
   CREATE: 'CREATE',
@@ -8,6 +8,7 @@ export const ACTION_TYPES = {
 };
 
 export const getAll = () => (dispatch) => {
+  console.log('Book Actions');
   api
     .book()
     .getAll()

@@ -22,34 +22,29 @@ const styles = (theme) => ({
 class EditBookForm extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.updateInputValue = this.updateInputValue.bind(this);
   }
   state = {
     editFormShow: true,
-    bookInfo: this.props.bookInfo
+    isbn: this.props.bookInfo.isbn,
+    author: this.props.bookInfo.author,
+    title: this.props.bookInfo.title,
+    id: this.props.bookInfo.id
   };
 
-  handleChange(event) {
-    const name = event.target.name;
-    const field = `this.state.bookInfo.${name}`;
-    this.setState({field: event.target.value});
-  }
-
-  updateInputValue(event) {
-    const {
-      target: {value},
-    } = event;
-    this.setState({bookInfo: value});
-  }
+  updateInputValue = (event, value, name) => {
+    console.log(`name value: ${name}: ${value}`);
+    this.setState({ [name]: value || event.target.value });
+  };
   handleSubmit() {
     axios
-      .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${this.props.bookInfo.id}`, {
-        author: this.state.bookInfo.author,
-        title: this.state.bookInfo.title,
-        isbn: this.state.bookInfo.isbn,
+    .put(`https://bookclubapi.azurewebsites.net/api/v1/books/${this.props.bookInfo.id}`, {
+
+        author: this.state.author,
+        title: this.state.title,
+        isbn: this.state.isbn
       })
       .then(function (response) {
         console.log(response);
@@ -81,16 +76,16 @@ class EditBookForm extends Component {
                     id='standard-basic'
                     label='Isbn'
                     className={classes.inputs}
-                    value={this.state.bookInfo.isbn}
-                    onChange={this.updateInputValue}
+                    value={this.state.isbn}
+                    onChange={(event, value) => this.updateInputValue(event, value, "isbn")}
                   />
                   <TextField
                     name='author'
                     variant='outlined'
                     label='Author'
                     className={classes.inputs}
-                    value={this.state.bookInfo.author}
-                    onClick={this.updateInputValue}
+                    value={this.state.author}
+                    onChange={(event, value) => this.updateInputValue(event, value, "author")}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -99,8 +94,8 @@ class EditBookForm extends Component {
                     variant='outlined'
                     label='Title'
                     className={classes.inputs}
-                    value={this.state.bookInfo.title}
-                    onClick={this.updateInputValue}
+                    value={this.state.title}
+                    onChange={(event, value) => this.updateInputValue(event, value, "title")}
                   />
                   <div>
                     <Button

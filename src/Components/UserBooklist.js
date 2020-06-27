@@ -75,6 +75,7 @@ class UserBooklist extends Component {
         isbn: book.isbn,
         author: book.author,
         title: book.title,
+        id: book.id
       },
     });
   };

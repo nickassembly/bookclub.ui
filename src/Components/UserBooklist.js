@@ -11,8 +11,10 @@ import Button from '@material-ui/core/Button';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-
 import AddBookForm from './AddBookForm';
+import CreateIcon from '@material-ui/icons/Create';
+import AddBookForm from './AddBookForm';
+import EditBookForm from './EditBookForm';
 import axios from 'axios';
 
 const styles = (theme) => ({
@@ -26,6 +28,11 @@ const styles = (theme) => ({
   },
   checkBox: {
     color: 'black',
+  },
+  editButton: {
+    '&:hover': {
+      color: '#a6ada8',
+    },
   },
 });
 
@@ -42,6 +49,7 @@ class UserBooklist extends Component {
     bookInfo: {},
     checkedBooks: [],
     bookFormDialogOpen: false,
+    editBookDialogOpen: false,
   };
 
   async componentDidMount() {
@@ -60,6 +68,18 @@ class UserBooklist extends Component {
     }
   };
 
+  handleEditBook = (book) => () => {
+    this.setState({editBookDialogOpen: !this.state.editBookDialogOpen});
+    this.setState({
+      bookInfo: {
+        isbn: book.isbn,
+        author: book.author,
+        title: book.title,
+        id: book.id
+      },
+    });
+  };
+
   handleOpenAddBook = () => {
     this.setState({bookFormDialogOpen: !this.state.bookFormDialogOpen});
   };
@@ -76,8 +96,12 @@ class UserBooklist extends Component {
   render() {
     const {classes} = this.props;
     let addBookContent;
+    let editBookContent;
     if (this.state.bookFormDialogOpen) {
       addBookContent = <AddBookForm bookInfo={this.state.bookInfo} />;
+    }
+    if (this.state.editBookDialogOpen) {
+      editBookContent = <EditBookForm bookInfo={this.state.bookInfo} />;
     }
     return (
       <div>
@@ -86,6 +110,7 @@ class UserBooklist extends Component {
         ) : (
           <Fragment>
             <div>{addBookContent}</div>
+            <div>{editBookContent}</div>
             <h1> Book Want List</h1>
             <TableContainer component={Paper}>
               <Table size='small' aria-label='a dense table'>
@@ -95,6 +120,7 @@ class UserBooklist extends Component {
                     <TableCell align='center'>Isbn </TableCell>
                     <TableCell align='center'>Author</TableCell>
                     <TableCell align='center'>Title</TableCell>
+                    <TableCell align='center'>Edit</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -112,6 +138,12 @@ class UserBooklist extends Component {
                       <TableCell align='center'>{book.isbn} </TableCell>
                       <TableCell align='center'>{book.author}</TableCell>
                       <TableCell align='center'>{book.title}</TableCell>
+                      <TableCell>
+                        <CreateIcon
+                          className={classes.editButton}
+                          onClick={this.handleEditBook(book)}
+                        />
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -52,7 +52,8 @@ class UserBooklist extends Component {
   };
 
   async componentDidMount() {
-    const url = 'https://bookclubapi.azurewebsites.net/api/v1/books';
+    const url =
+      'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books';
     const response = await fetch(url);
     const data = await response.json();
     this.setState({book: data, loading: false});
@@ -85,10 +86,15 @@ class UserBooklist extends Component {
 
   handleDeleteBook = () => {
     this.state.checkedBooks.forEach((bookId) =>
-      axios.delete('https://bookclubapi.azurewebsites.net/api/v1/books/' + bookId).then((res) => {
-        console.log(res);
-        this.setState({checkedBooks: []});
-      })
+      axios
+        .delete(
+          'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books/' +
+            bookId
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({checkedBooks: []});
+        })
     );
   };
 

@@ -8,14 +8,14 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: '',
     };
 
     this.change = this.change.bind(this);
     this.submit = this.submit.bind(this);
   }
-
+  
   change(e) {
     this.setState({
       [e.target.name]: e.target.value,
@@ -24,13 +24,14 @@ class Login extends Component {
 
   submit(e) {
     e.preventDefault();
-
+    fetch('http://bookclubapi.azurewebsites.net/Users/authenticate');
     axios
-      .post('https://bookclubapi.azurewebsites.net/api/v1/identity/login', {
-        email: this.state.email,
-        password: this.state.password,
+      .post('http://bookclubapi.azurewebsites.net/Users/authenticate', {
+        username: this.state.username,
+        password: this.state.password
       })
       .then((res) => {
+        console.log('token received', JSON.stringify(res.data.token));
         // localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
         this.props.history.push('/user');
       });
@@ -45,13 +46,13 @@ class Login extends Component {
           </h1>
           <h3 className='login-form-header text-center'>Scientia Potentia Est</h3>
           <FormGroup>
-            <Label>Email</Label>
+            <Label>Username</Label>
             <Input
               type='text'
-              name='email'
-              placeholder='Email'
+              name='username'
+              placeholder='Username'
               onChange={(e) => this.change(e)}
-              value={this.state.email}
+              value={this.state.username}
             />
           </FormGroup>
           <FormGroup>

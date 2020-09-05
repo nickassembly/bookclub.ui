@@ -54,9 +54,9 @@ class UserBooklist extends Component {
   async componentDidMount() {
     const url =
       'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books';
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({book: data, loading: false});
+    //const response = await fetch(url);
+    //const data = await response.json();
+    //this.setState({book: data, loading: false});
   }
 
   handleClickCheckbox = (id) => (event) => {

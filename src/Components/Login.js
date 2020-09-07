@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../App.css';
+import '../app.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {FacebookLoginButton} from 'react-social-login-buttons';
 
@@ -15,7 +15,7 @@ class Login extends Component {
     this.change = this.change.bind(this);
     this.submit = this.submit.bind(this);
   }
-  
+
   change(e) {
     this.setState({
       [e.target.name]: e.target.value,
@@ -28,7 +28,7 @@ class Login extends Component {
     axios
       .post('http://bookclubapi.azurewebsites.net/Users/authenticate', {
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
       })
       .then((res) => {
         console.log('token received', JSON.stringify(res.data.token));

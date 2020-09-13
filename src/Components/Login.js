@@ -24,9 +24,9 @@ class Login extends Component {
 
   submit(e) {
     e.preventDefault();
-    fetch('http://bookclubapi.azurewebsites.net/Users/authenticate');
+    fetch('https://bookclubapi.azurewebsites.net/Users/authenticate');
     axios
-      .post('http://bookclubapi.azurewebsites.net/Users/authenticate', {
+      .post('https://bookclubapi.azurewebsites.net/Users/authenticate', {
         username: this.state.username,
         password: this.state.password,
       })

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../app.css';
+import {withRouter} from 'react-router-dom';
+import '../App.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {FacebookLoginButton} from 'react-social-login-buttons';
 
@@ -24,7 +25,6 @@ class Login extends Component {
 
   submit(e) {
     e.preventDefault();
-    fetch('https://bookclubapi.azurewebsites.net/Users/authenticate');
     axios
       .post('https://bookclubapi.azurewebsites.net/Users/authenticate', {
         username: this.state.username,
@@ -32,8 +32,8 @@ class Login extends Component {
       })
       .then((res) => {
         console.log('token received', JSON.stringify(res.data.token));
-        // localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
-        this.props.history.push('/user');
+        localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
+        // this.props.history.push('/user');
       });
   }
 
@@ -68,8 +68,6 @@ class Login extends Component {
           <Button className='btn-lg btn-dark btn-block' type='submit'>
             Log in
           </Button>
-          <div className='text-center pt-3'>Or continue with your social account</div>
-          <FacebookLoginButton className='mt-3 mb-3' />
           <div className='text-center'>
             <a href='/register'>Register</a>
             <span className='p-2'>|</span>

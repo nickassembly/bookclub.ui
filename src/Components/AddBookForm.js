@@ -4,6 +4,7 @@ import {Button} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const styles = (theme) => ({
   root: {
@@ -28,6 +29,8 @@ class AddBookForm extends Component {
         author: '',
         title: '',
       },
+      userName: Cookies.get('userId'),
+      token: `Bearer ${Cookies.get('token')}`,
       addFormShow: true,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -46,10 +49,12 @@ class AddBookForm extends Component {
         author: this.state.author,
         title: this.state.title,
         isbn: this.state.isbn,
-      })
+      },  {headers: {Authorization: this.state.token}})
       .then(function (response) {
         console.log(response);
-      });
+      })
+      .catch(err => { console.log(err) })
+
   }
 
   handleResetForm(event) {

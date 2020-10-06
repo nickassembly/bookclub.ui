@@ -14,13 +14,14 @@ export default {
     };
   },
   users(url = baseUrl + 'Users') {
-    console.log('api called');
+    console.log('user api called');
     return {
       getAll: () => axios.get(url),
-      getById: (id) => axios.get(url + '/' + id),
+      getById: (id) => axios.get(`${url}/${id}`),
       create: (newRecord) => axios.post(url, newRecord),
-      update: (id, updateRecord) => axios.put(url + '/' + id, updateRecord),
-      deleteById: (id) => axios.delete(url + id),
+      loginUser: (userInfo) => axios.post(`${url}/authenticate`, userInfo),
+      update: (id, updateRecord) => axios.put(`${url}/${id}`, updateRecord),
+      deleteById: (id) => axios.delete(`${url}/${id}`),
     };
   },
 };

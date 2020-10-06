@@ -1,20 +1,27 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
 import '../App.css';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import {FacebookLoginButton} from 'react-social-login-buttons';
+import Cookies from 'js-cookie'
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cookieUser: Cookies.get('user'),
       username: '',
       password: '',
+      userId: Cookies.get('userId'),
+      token: Cookies.get('token') || "",
+      redirect: false
     };
-
     this.change = this.change.bind(this);
-    this.submit = this.submit.bind(this);
+    this.attemptLogin = this.attemptLogin.bind(this);
+    if (this.state.token !== "")  {
+      console.log(`Token present ${this.state.token}`);
+      this.state.redirect = true;
+    }
   }
 
   change(e) {
@@ -23,24 +30,36 @@ class Login extends Component {
     });
   }
 
-  submit(e) {
-    e.preventDefault();
-    axios
-      .post('https://bookclubapi.azurewebsites.net/Users/authenticate', {
-        username: this.state.username,
-        password: this.state.password,
-      })
-      .then((res) => {
-        console.log('token received', JSON.stringify(res.data.token));
-        localStorage.setItem('cool-jwt', JSON.stringify(res.data.token));
-        // this.props.history.push('/user');
+  attemptLogin() {
+    const url = 'https://bookclubapi.azurewebsites.net/Users';
+    const userInfo = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    axios.post(`${url}/authenticate`, userInfo)
+    .then((response) => {
+      Cookies.set('token',response.data.token, { expires: 365 });
+      Cookies.set('user',response.data.username, { expires: 365 });
+      Cookies.set('userId',response.data.id, { expires: 365 });
+      this.setState({
+        token: response.data.token,
+        cookieUser: response.data.username,
+        userId: response.data.id,
+        redirect: true
       });
-  }
+    })
+    .catch(err => { console.log(err) })
+  };
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+       return <Redirect to='/userbooklist'/>;
+     }
     return (
       <div>
-        <Form className='login-form' onSubmit={(e) => this.submit(e)}>
+        <Form className='login-form' >
           <h1 className='text-center'>
             <span className='font-weight-bold'>Book Club</span>
           </h1>
@@ -65,7 +84,7 @@ class Login extends Component {
               value={this.state.password}
             />
           </FormGroup>
-          <Button className='btn-lg btn-dark btn-block' type='submit'>
+          <Button className='btn-lg btn-dark btn-block' onClick={() => this.attemptLogin()}>
             Log in
           </Button>
           <div className='text-center'>

@@ -15,6 +15,8 @@ import AddBookForm from './AddBookForm';
 import CreateIcon from '@material-ui/icons/Create';
 import EditBookForm from './EditBookForm';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { getAuthHeader } from '../Helpers/UtilityFunctions';
 
 const styles = (theme) => ({
   root: {
@@ -49,14 +51,18 @@ class UserBooklist extends Component {
     checkedBooks: [],
     bookFormDialogOpen: false,
     editBookDialogOpen: false,
+    redirect: false,
+    username: Cookies.get('user'),
+    token: `Bearer ${Cookies.get('token')}`
   };
 
   async componentDidMount() {
-    const url =
-      'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books';
-    //const response = await fetch(url);
-    //const data = await response.json();
-    //this.setState({book: data, loading: false});
+    const url = `https://bookclubapi.azurewebsites.net/api/v1/books?userName=${this.state.username}`;
+    axios.get(url, {headers: {Authorization: this.state.token}})
+    .then(response => {
+      this.setState({book: response.data, loading: false});
+    })
+    .catch(err => { console.log(err) })
   }
 
   handleClickCheckbox = (id) => (event) => {
@@ -88,7 +94,7 @@ class UserBooklist extends Component {
     this.state.checkedBooks.forEach((bookId) =>
       axios
         .delete(
-          'https://cors-anywhere.herokuapp.com/https://bookclubapi.azurewebsites.net/api/v1/books/' +
+          'https://bookclubapi.azurewebsites.net/api/v1/books/' +
             bookId
         )
         .then((res) => {

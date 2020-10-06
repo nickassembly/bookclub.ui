@@ -13,4 +13,15 @@ export default {
       deleteById: (id) => axios.delete(url + id),
     };
   },
+  users(url = baseUrl + 'Users') {
+    console.log('user api called');
+    return {
+      getAll: () => axios.get(url),
+      getById: (id) => axios.get(`${url}/${id}`),
+      create: (newRecord) => axios.post(url, newRecord),
+      loginUser: (userInfo) => axios.post(`${url}/authenticate`, userInfo),
+      update: (id, updateRecord) => axios.put(`${url}/${id}`, updateRecord),
+      deleteById: (id) => axios.delete(`${url}/${id}`),
+    };
+  },
 };

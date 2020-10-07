@@ -45,16 +45,21 @@ class AddBookForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     axios
-      .post('https://bookclubapi.azurewebsites.net/api/v1/books', {
-        author: this.state.author,
-        title: this.state.title,
-        isbn: this.state.isbn,
-      },  {headers: {Authorization: this.state.token}})
+      .post(
+        'https://bookclubapi.azurewebsites.net/api/v1/books',
+        {
+          author: this.state.author,
+          title: this.state.title,
+          isbn: this.state.isbn,
+        },
+        {headers: {Authorization: this.state.token}}
+      )
       .then(function (response) {
         console.log(response);
       })
-      .catch(err => { console.log(err) })
-
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleResetForm(event) {

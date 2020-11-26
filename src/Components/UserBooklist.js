@@ -16,7 +16,6 @@ import CreateIcon from '@material-ui/icons/Create';
 import EditBookForm from './EditBookForm';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { getAuthHeader } from '../Helpers/UtilityFunctions';
 
 const styles = (theme) => ({
   root: {
